@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>      
+</head>
+<body>
+
+<h1>Categories</h1>
+    <%if (categories.length===0){%>
+    <p>No categories</p>
+    <%}else{%>
+    <ul>
+      <%categories.forEach((category) =>{%>
+      <li><a href="http://localhost:3000/fights/categories/<%=category.id%>"><%="-"+category.weight+"kg/age: "+category.age+" - "+category.sex%></a></li>
+      <%})%>
+    </ul>
+    <%}%>
+</body>
+</html>

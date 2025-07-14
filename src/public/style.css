@@ -1,0 +1,15 @@
+.red_corner {
+  text-align: center;
+  background-color: indianred;
+}
+
+.blue_corner {
+  text-align: center;
+  background-color: cadetblue;
+}
+
+.corner_name span {
+  background-color: gray;
+  display: inline-block;
+  margin: 5px;
+}

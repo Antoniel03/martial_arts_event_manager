@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athletes</title>      
+</head>
+<body>
+
+<h1>Athletes</h1>
+    <%if (athletes.length===0){%>
+    <p>No athletes</p>
+    <%}else{%>
+    <ul>
+      <%athletes.forEach((athlete) =>{%>
+      <li><a href="http://localhost:3000/athletes/<%=athlete.id%>"><%=athlete.name+" "+athlete.lastname%></a></li>
+      <%})%>
+    </ul>
+    <%}%>
+</body>
+</html>

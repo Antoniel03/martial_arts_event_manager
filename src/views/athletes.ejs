@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Athlete</title>      
+</head>
+<body>
+    <%if (athlete===undefined){%>
+    <h1>Athlete not found</h1>
+    <%}else{%>
+      <h1><%= athlete.name+" "+athlete.lastname %></h1>
+        <div>
+          <h2>Stats</h2>
+          <div> 
+            <h3>Record: <%=athlete.stats.record[0]+" - "+athlete.stats.record[1]%></h3>
+            <h3>Win rate: <%=athlete.stats.win_rate+"%"%></h3>
+            <h3>Win gap: <%=athlete.stats.win_gap+"%"%></h3>
+            <h3>Striking</h3>
+              <%const keys=Object.keys(athlete.stats.strikes)%> 
+              <%const values=Object.values(athlete.stats.strikes)%> 
+              <%for (let i=0 ; i<keys.length ; i++ ){ %>
+                  <span style="display:inline-block"><h4><%=keys[i]+": "+values[i]%></h4></span>
+              <%}%>
+          </div>
+        </div>
+    <%}%>
+</body>
+</html>

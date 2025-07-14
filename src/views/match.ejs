@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Match <%=match.ring%></title>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+ <script>
+        const socket = io(); 
+
+        const currentUrl = window.location.href;
+        const url = new URL(currentUrl);
+        const queryParams = url.searchParams
+
+        console.log("Current URL:", currentUrl);        socket.on('msg', (msg) => {
+            const ring =parseInt(queryParams.get("ring")) 
+            if(msg.ring==ring){
+              const marker = document.getElementById(msg.header_id);
+              marker.textContent=msg.points;
+            }
+        });
+
+    </script>
+      
+</head>
+<body>
+
+
+    <% if (match.status!="idle"){%>
+    <div>
+      <h1 style="text-align:center">Ring <%=match.ring%></h1>
+    </div>
+
+    <div style="display:flex;justify-content:center">
+      <span style="display:inline-block">
+        <div class="red_corner">  
+          <div class="corner_name">   
+            <span>
+              <h2>Red corner</h2>
+            </span>
+
+            <span>
+
+              <h2><%=match.athlete_red%></h2>
+            </span>
+
+          </div>
+
+          <h3>Points</h3>
+          <h4 id="points_red"><%=match.points_red%></h4>
+        </div>
+      </span>
+
+      
+      <span style="display:inline-block">
+        <div class="blue_corner">        
+          <div class="corner_name">   
+
+            <span>
+              <h2>Blue corner</h2>
+            </span>
+            <span>
+              <h2><%=match.athlete_blue%></h2>
+            </span>
+
+          </div>
+
+          <h3>Points</h3>
+          <h4 id="points_blue"><%=match.points_blue%></h4>
+
+        </div>
+      </span>
+
+    </div>
+
+    <% } else{%>
+      <p style="text-align:center">waiting for data</p>
+    <% } %>
+    <p id="test"></p>
+
+</body>
+</html>

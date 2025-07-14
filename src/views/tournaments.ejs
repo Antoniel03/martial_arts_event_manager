@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Tournaments</title>      
+
+</head>
+<body>
+    <%if (tournaments.length===0){%>
+    <p>No tournaments</p>
+    <%}else{%>
+      <ul>
+        <%tournaments.forEach((tournament) =>{%>
+        <li><a href="http://localhost:3000/tournaments/<%=tournament.id%>/categories"><%=tournament.organizer+" "+tournament.location%></a></li>
+        <%})%>
+      </ul>
+    <%}%>
+</body>
+</html>
