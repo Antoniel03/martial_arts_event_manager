@@ -82,4 +82,30 @@ export class FightController {
       res.status(500).send("Internal Server Error");
     }
   };
+  createCornerResult = (req, res) => {
+    console.log("creating corner result");
+    const cornerData = req.body;
+
+    try {
+      this.#fightService.createCornerResult(cornerData);
+      res.status(200).send("Corner result created successfully");
+    } catch (error) {
+      console.error("Error creating corner result:", error);
+      res.status(500).send("Internal Server Error");
+    }
+
+    console.log("corner result added");
+  };
+
+  getAthleteFights = (req, res) => {
+    const athleteId = req.params.id;
+
+    try {
+      const athleteFights = this.#fightService.getAthleteFights(athleteId);
+      res.status(200).send(athleteFights);
+    } catch (error) {
+      console.error("Error getting fights by athlete:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
 }

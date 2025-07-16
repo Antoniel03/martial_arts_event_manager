@@ -15,6 +15,8 @@ export const fightsRouter = (io) => {
   // Route to create a new fight
   // POST /fights
   router.post("/", fightController.createFight);
+  router.post("/results", fightController.createCornerResult);
+  router.get("/athlete/:id", fightController.getAthleteFights);
 
   // Route to update points for a fight
   // PUT /fights/point

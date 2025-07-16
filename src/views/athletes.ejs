@@ -14,15 +14,31 @@
         <div>
           <h2>Stats</h2>
           <div> 
-            <h3>Record: <%=athlete.stats.record[0]+" - "+athlete.stats.record[1]%></h3>
-            <h3>Win rate: <%=athlete.stats.win_rate+"%"%></h3>
-            <h3>Win gap: <%=athlete.stats.win_gap+"%"%></h3>
+            <h3>Record: <%=stats.record[0]+" - "+stats.record[1]%></h3>
+            <h3>Win rate: <%=stats.win_rate.toFixed(2)+"%"%></h3>
+            <h3>Win gap: <%=stats.win_gap.toFixed(2)+"%"%></h3>
             <h3>Striking</h3>
-              <%const keys=Object.keys(athlete.stats.strikes)%> 
-              <%const values=Object.values(athlete.stats.strikes)%> 
+              <%const keys=Object.keys(stats.strikes)%> 
+              <%const values=Object.values(stats.strikes)%> 
               <%for (let i=0 ; i<keys.length ; i++ ){ %>
-                  <span style="display:inline-block"><h4><%=keys[i]+": "+values[i]%></h4></span>
+                  <span style="display:inline-block"><h4><%=keys[i]+": "+values[i].toFixed(2)%></h4></span>
               <%}%>
+            <h3>Average head strikes: <%=stats.body_part_strikes.head.toFixed(2)+""%></h3>
+            <h3>Average body strikes: <%=stats.body_part_strikes.body.toFixed(2)+""%></h3>
+          </div>
+          <div>
+          <h2>Fights (<%=fights.length%>)</h2>
+            <ul>
+              <%fights.forEach((fight) =>{%>
+              <li><a href="http://localhost:3000/fights/match/<%=fight.id%>"><%=fight.athlete_red+" VS "+fight.athlete_blue%></a></li>
+              <p>
+                <%="Red score:"%>
+                <%=fight.points_red%>
+                <%="Blue score:"%>
+                <%=fight.points_blue%>
+                </p>
+              <%})%>
+            </ul>
           </div>
         </div>
     <%}%>

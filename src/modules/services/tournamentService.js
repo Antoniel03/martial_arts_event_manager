@@ -4,15 +4,8 @@ export class TournamentService {
   #categories = [];
 
   constructor() {
-    this.#tournaments = [
-      { id: "t1", name: "Summer Slam 2024", date: "2024-08-15" },
-      { id: "t2", name: "Winter Cup 2024", date: "2024-12-01" },
-    ];
-    this.#categories = [
-      { id: "c1", tournament_id: "t1", name: "Men's Lightweight" },
-      { id: "c2", tournament_id: "t1", name: "Women's Welterweight" },
-      { id: "c3", tournament_id: "t2", name: "Junior Flyweight" },
-    ];
+    this.#tournaments = [];
+    this.#categories = [];
   }
 
   getAllTournaments() {
