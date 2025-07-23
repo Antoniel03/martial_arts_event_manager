@@ -23,6 +23,10 @@ app.use("/fights", fightsRouter(io));
 app.use("/athletes", athletesRouter);
 app.use("/tournaments", tournamentsRouter());
 
+app.get("/", (req, res) => {
+  res.status(200).render("index");
+});
+
 server.listen(3000, () => {
   console.log("server running at http://localhost:3000");
 });
