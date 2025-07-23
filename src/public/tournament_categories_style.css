@@ -1,0 +1,406 @@
+/*
+ * tournament_categories_style.css
+ * Styles specifically for the categories page, strictly adapting to its existing HTML structure
+ * to achieve the exact aesthetic of the main site.
+ *
+ * IMPORTANT: Ensure tournaments_style.css is linked BEFORE this file in your HTML.
+ * This file will override or extend styles to match the aesthetic,
+ * compensating for the lack of shared structural classes in the Categories HTML.
+*/
+
+/* --- Variables (MUST BE IDENTICAL TO tournaments_style.css) --- */
+/* These variables are crucial for consistency. They should ideally be loaded
+   from tournaments_style.css first. Duplicated here for clarity and as a fallback. */
+:root {
+  --primary-bg: #111111;
+  --secondary-bg: #1C1C1C;
+  --tertiary-bg: #282828;
+  --text-color-light: #F0F0F0;
+  --text-color-dark: #B0B0B0;
+  --accent-color: #6A994E;
+  --accent-color-light: #80B060;
+  --border-color: #333333;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --border-radius-main: 8px;
+  --transition-speed: 0.3s ease-out;
+
+  /* Consistent spacing variables */
+  --spacing-xs: 10px;
+  --spacing-sm: 15px;
+  --spacing-md: 25px;
+  --spacing-lg: 35px;
+  /* Matches main-nav gap */
+  --spacing-xl: 50px;
+  /* Matches .no-results-card margin */
+  --spacing-xxl: 70px;
+  /* Matches .section-heading margin-bottom */
+  --section-padding: 80px;
+  /* Matches .tournaments-section padding */
+}
+
+/* --- Base & Reset (Consistent with tournaments_style.css) --- */
+/* Apply global body styles to ensure consistent background and text rendering */
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--text-color-light);
+  background-color: var(--primary-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  /* Ensures content pushes footer down if one existed */
+  display: flex;
+  flex-direction: column;
+  /* Stack header and main content */
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure global link and list styles are consistent */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+a:hover {
+  color: var(--accent-color-light);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- Header Styling (Mimicking .site-header & .container) --- */
+header {
+  /* Mimic .site-header */
+  background-color: rgba(17, 17, 17, 0.9);
+  padding: 22px 0;
+  /* Vertical padding from .site-header */
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+
+  /* Mimic .site-header .container */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  /* Max width of the content inside header */
+  margin: 0 auto;
+  /* Center the header content */
+  padding-left: 25px;
+  /* Horizontal padding from .container */
+  padding-right: 25px;
+  /* Horizontal padding from .container */
+  box-sizing: border-box;
+  /* Ensure padding is included in the width */
+}
+
+header h1 {
+  /* Style for the "Categories" title, mimicking .logo */
+  font-family: var(--font-heading);
+  font-size: 1.9em;
+  font-weight: 700;
+  color: var(--text-color-light);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  /* Ensure uppercase */
+  margin: 0;
+  /* Remove default h1 margin */
+  /* No ::after pseudo-element for the main logo, so none here either */
+}
+
+header nav ul {
+  /* Style for the navigation list ("Home"), mimicking .main-nav ul */
+  display: flex;
+  gap: var(--spacing-lg);
+  /* Matches .main-nav ul gap */
+  margin: 0;
+  /* Remove default ul margin */
+}
+
+header nav ul li a {
+  /* Style for the nav links ("Home"), mimicking .main-nav a */
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-color-dark);
+  padding: 8px 0;
+  /* Matches .main-nav a padding */
+  position: relative;
+  transition: color var(--transition-speed);
+}
+
+header nav ul li a:hover {
+  color: var(--text-color-light);
+  /* Matches .main-nav a:hover */
+}
+
+/* The main nav has an active/hover underline. Let's add it to the Home link. */
+header nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+  transition: width var(--transition-speed), left var(--transition-speed);
+}
+
+header nav ul li a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+
+/* --- Main Content Area (Mimicking .tournaments-section & .container) --- */
+/* This section will house either the list of categories or the "no categories" message */
+.main-content-area {
+  /* This is a conceptual wrapper, directly applied via body children */
+  flex-grow: 1;
+  /* Allows this area to take up available space */
+  padding: var(--section-padding) 0;
+  /* Vertical padding from .tournaments-section */
+  background-color: var(--secondary-bg);
+  /* Background color from .tournaments-section */
+  border-bottom: 1px solid var(--border-color);
+  /* Bottom border from .tournaments-section */
+  min-height: 70vh;
+  /* Ensure content area takes up enough vertical space */
+  display: flex;
+  /* Use flexbox to help center content vertically */
+  align-items: center;
+  /* Center items vertically */
+  justify-content: center;
+  /* Center items horizontally if they are small */
+  flex-direction: column;
+  /* Stack content if multiple items */
+}
+
+/* Apply the .main-content-area styles directly to the body's children that represent content */
+body>ul,
+body>p {
+  max-width: 1200px;
+  /* Max width of the content */
+  width: 100%;
+  /* Ensure it takes full width up to max-width */
+  margin: 0 auto;
+  /* Center the content horizontally */
+  padding: 0 25px;
+  /* Horizontal padding from .container */
+  box-sizing: border-box;
+  /* Reset default margins from previous attempts */
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* --- "No Categories" Message Styling (Mimicking .no-results-card) --- */
+body>p {
+  /* Targets the <p> tag when categories.length is 0 */
+  background-color: var(--primary-bg);
+  /* Matches .no-results-card bg */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  padding: 60px 30px;
+  /* Matches .no-results-card padding */
+  text-align: center;
+  max-width: 600px;
+  /* Matches .no-results-card max-width */
+  margin: var(--spacing-xl) auto;
+  /* Matches .no-results-card margin */
+  box-shadow: 0 4px 15px var(--shadow-color);
+  /* Matches .no-results-card shadow */
+  color: var(--text-color-light);
+  font-size: 1.2em;
+  line-height: 1.5;
+  flex-grow: 0;
+  /* Prevents it from consuming all vertical space when alone */
+}
+
+/* Ensure small-text style is applied if needed for the second line */
+body>p+p {
+  /* If there's a second <p> for small text */
+  font-size: 0.9em;
+  color: var(--text-color-dark);
+  margin-top: 15px;
+  /* Space between the two lines */
+}
+
+
+/* --- Categories List Grid Styling (Mimicking .tournament-cards-grid) --- */
+body>ul {
+  /* Targets the main <ul> containing category <li>s */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Matches .tournament-cards-grid */
+  gap: 30px;
+  /* Matches .tournament-cards-grid gap */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* Ensure no extra margins from body > ul selector */
+  /* Add top/bottom margin to position within the main-content-area */
+  margin-top: calc(var(--section-padding) / 2);
+  /* Adjust to center content within the section */
+  margin-bottom: calc(var(--section-padding) / 2);
+}
+
+/* --- Individual Category Card Styling (Mimicking .tournament-card) --- */
+body>ul>li {
+  /* Targets each <li> item in the categories list */
+  background-color: var(--primary-bg);
+  /* Matches .tournament-card bg */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  box-shadow: 0 4px 15px var(--shadow-color);
+  /* Matches .tournament-card shadow */
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+  overflow: hidden;
+  /* Ensure content is centered within the card */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+body>ul>li:hover {
+  transform: translateY(-5px);
+  /* Matches .tournament-card:hover */
+  box-shadow: 0 8px 25px var(--shadow-color);
+  /* Matches .tournament-card:hover */
+  border-color: var(--accent-color);
+  /* Matches .tournament-card:hover */
+}
+
+/* --- Category Link Text Styling (Mimicking card content) --- */
+body>ul>li>a {
+  /* Targets the <a> tag inside each <li> */
+  display: block;
+  /* Make the whole card area clickable */
+  padding: 30px;
+  /* Matches .tournament-card a padding */
+  color: var(--text-color-light);
+  /* Matches .tournament-card a color */
+  text-decoration: none;
+  height: 100%;
+  /* Ensure link fills the entire <li> */
+  display: flex;
+  /* For centering text within the link */
+  justify-content: center;
+  align-items: center;
+
+  /* Font styling for the category text, adapting from card-title/location */
+  font-family: var(--font-body);
+  /* Using body font for this specific text */
+  font-size: 1.2em;
+  /* Slightly larger than card-location, smaller than card-title */
+  font-weight: 400;
+  /* Regular weight for readability */
+  text-transform: none;
+  /* Keep original casing for weight/age/sex */
+  letter-spacing: normal;
+  line-height: 1.5;
+}
+
+body>ul>li>a:hover {
+  color: var(--text-color-light);
+  /* Matches .tournament-card a:hover */
+}
+
+/* Optional: Style for an "active" or highlighted category card */
+/* To use this, you would add `class="active-category"` to the <li> in your EJS */
+body>ul>li.active-category {
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 15px rgba(106, 153, 78, 0.6);
+}
+
+body>ul>li.active-category a {
+  color: var(--accent-color);
+}
+
+
+/* --- Responsive Adjustments (Consistent with tournaments_style.css) --- */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 20px;
+    padding: 22px 20px;
+    /* Adjust header padding */
+  }
+
+  header h1 {
+    font-size: 1.6em;
+  }
+
+  header nav ul {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  body>ul,
+  body>p {
+    padding: 0 20px;
+    /* Adjust horizontal padding */
+  }
+
+  body>ul {
+    grid-template-columns: minmax(280px, 1fr);
+    /* Matches tournament-cards-grid */
+    gap: 20px;
+  }
+
+  body>ul>li>a {
+    padding: 30px;
+    /* Matches tournament-card padding */
+    font-size: 1.1em;
+  }
+
+  body>p {
+    padding: 60px 30px;
+    /* Matches no-results-card padding */
+    margin: 50px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 15px 15px;
+    /* Further adjust header padding */
+  }
+
+  header h1 {
+    font-size: 1.3em;
+  }
+
+  header nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  body>ul {
+    grid-template-columns: 1fr;
+    /* Force single column on very small screens */
+    gap: 15px;
+  }
+
+  body>ul>li>a {
+    padding: 25px;
+    /* Matches tournament-card padding */
+    font-size: 1em;
+  }
+}

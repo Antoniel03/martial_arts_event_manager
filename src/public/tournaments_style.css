@@ -1,0 +1,551 @@
+/* --- Variables (Accent Color & Fonts) --- */
+:root {
+  --primary-bg: #111111;
+  /* Very dark nearly black */
+  --secondary-bg: #1C1C1C;
+  /* Slightly lighter for cards */
+  --tertiary-bg: #282828;
+  /* Even lighter for some section backgrounds (though not heavily used on this page) */
+  --text-color-light: #F0F0F0;
+  /* Off-white for general text */
+  --text-color-dark: #B0B0B0;
+  /* Muted gray for secondary text */
+  --accent-color: #6A994E;
+  /* Deep, muted forest green (e.g., for serious, natural feel) */
+  --accent-color-light: #80B060;
+  /* A slightly lighter version of the accent for hover states */
+  --border-color: #333333;
+  /* Darker border for definition */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  /* Dark, subtle shadow */
+
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --border-radius-main: 8px;
+  /* Standard rounded corners */
+  --transition-speed: 0.3s ease-out;
+}
+
+/* --- Base & Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--text-color-light);
+  background-color: var(--primary-bg);
+  -webkit-font-smoothing: antialiased;
+  /* Smoother text rendering */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+  /* Slightly more padding for better spacing */
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+a:hover {
+  color: var(--accent-color-light);
+  /* Use the lighter accent color for hover */
+}
+
+ul {
+  list-style: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.9em;
+  color: var(--text-color-dark);
+}
+
+/* --- Typography --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--text-color-light);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  /* Slightly tighter letter spacing for clean look */
+  margin-bottom: 0.5em;
+}
+
+.section-heading {
+  font-size: 2.5em;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 70px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.section-heading::after {
+  /* Underline effect for section titles */
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  /* Slightly wider */
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+  /* Small rounded ends on the underline */
+}
+
+/* --- Header --- */
+.site-header {
+  background-color: rgba(17, 17, 17, 0.9);
+  /* Opaque background with slight opacity for depth */
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  /* More blur for a 'glass' effect */
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.9em;
+  font-weight: 700;
+  color: var(--text-color-light);
+  letter-spacing: 0.12em;
+}
+
+.logo:hover {
+  color: var(--accent-color);
+  transform: scale(1.01);
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 35px;
+  /* More space out navigation items */
+}
+
+.main-nav a {
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-color-dark);
+  padding: 8px 0;
+  /* More vertical padding */
+  position: relative;
+  transition: color var(--transition-speed);
+}
+
+.main-nav a::after {
+  /* Active/Hover underline - now more like an accent bar */
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  /* Lower the bar */
+  left: 0;
+  /* Start from the left */
+  width: 0%;
+  height: 3px;
+  /* Thicker bar */
+  background-color: var(--accent-color);
+  border-radius: 2px;
+  /* Small rounded ends */
+  transition: width var(--transition-speed), left var(--transition-speed);
+  /* Add left to transition */
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+  width: 100%;
+  left: 0;
+  /* Ensure it moves fully to the left */
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--text-color-light);
+  /* Hover makes it brighter white */
+}
+
+
+/* --- Tournaments Section --- */
+.tournaments-section {
+  padding: 80px 0;
+  /* Consistent section padding */
+  background-color: var(--secondary-bg);
+  /* Use a secondary background for content areas */
+  border-bottom: 1px solid var(--border-color);
+  min-height: 70vh;
+  /* Ensure content area takes up enough vertical space */
+  display: flex;
+  /* Use flexbox to help center content vertically if short */
+  align-items: center;
+  /* Center items vertically */
+}
+
+.tournament-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* Responsive grid for cards */
+  gap: 30px;
+  /* Space between cards */
+  list-style: none;
+  /* Remove default list bullets */
+  padding: 0;
+  margin: 0;
+}
+
+.tournament-card {
+  background-color: var(--primary-bg);
+  /* Darker background for individual cards */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  /* Apply rounded borders */
+  box-shadow: 0 4px 15px var(--shadow-color);
+  /* Subtle shadow for depth */
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+  overflow: hidden;
+  /* Ensures content respects border-radius */
+}
+
+.tournament-card:hover {
+  transform: translateY(-5px);
+  /* Lift effect on hover */
+  box-shadow: 0 8px 25px var(--shadow-color);
+  /* More pronounced shadow */
+  border-color: var(--accent-color);
+  /* Accent border on hover */
+}
+
+.tournament-card a {
+  display: block;
+  /* Make the whole card clickable */
+  padding: 30px;
+  /* Internal padding for card content */
+  color: var(--text-color-light);
+  /* Default text color for card content */
+  text-decoration: none;
+  /* Remove underline from link */
+  height: 100%;
+  /* Ensure link fills card */
+}
+
+.tournament-card a:hover {
+  color: var(--text-color-light);
+  /* Prevent link text from changing color on hover, the card handles the feedback */
+}
+
+.tournament-card .card-title {
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-color-light);
+  /* Title in light color */
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tournament-card .card-location {
+  font-size: 1.1em;
+  color: var(--text-color-dark);
+  /* Location in darker text */
+  margin-bottom: 20px;
+}
+
+.tournament-card .view-details-link {
+  display: inline-block;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+  /* Monospace for a digital feel */
+  color: var(--accent-color);
+  /* Accent color for the link */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color var(--transition-speed), transform var(--transition-speed);
+}
+
+.tournament-card .view-details-link:hover {
+  color: var(--accent-color-light);
+  /* Use the new lighter accent color variable */
+  transform: translateX(5px);
+  /* Slight movement on hover */
+}
+
+.no-results-card {
+  background-color: var(--primary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  padding: 60px 30px;
+  text-align: center;
+  max-width: 600px;
+  margin: 50px auto;
+  /* Center the card */
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.no-results-card p {
+  font-size: 1.2em;
+  color: var(--text-color-light);
+  margin-bottom: 15px;
+}
+
+/* --- Footer --- */
+.site-footer {
+  background-color: #0A0A0A;
+  /* Even darker footer */
+  color: var(--text-color-dark);
+  padding: 35px 0;
+  /* More vertical padding */
+  font-size: 0.9em;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+}
+
+.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  /* Gap for responsiveness */
+}
+
+.site-footer p {
+  margin-bottom: 0;
+  /* Remove default margin from p tag */
+}
+
+.footer-nav ul {
+  display: flex;
+  gap: 25px;
+}
+
+.footer-nav a {
+  color: var(--text-color-dark);
+}
+
+.footer-nav a:hover {
+  color: var(--accent-color);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .site-header .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .main-nav ul {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .section-heading {
+    font-size: 2em;
+  }
+
+  .tournament-cards-grid {
+    grid-template-columns: minmax(280px, 1fr);
+    /* Stack cards on smaller screens */
+  }
+
+  .tournament-card {
+    padding: 30px;
+  }
+
+  .site-footer .container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .tournament-card a {
+    padding: 25px;
+  }
+
+  .tournament-card .card-title {
+    font-size: 1.4em;
+  }
+
+  .tournament-card .card-location {
+    font-size: 1em;
+  }
+}
+
+/* --- Athlete List Specific Styles (New) --- */
+.athlete-list-container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  /* Use flexbox for vertical stacking of rows */
+  flex-direction: column;
+  gap: 15px;
+  /* Space between each athlete row */
+  max-width: 900px;
+  /* Constrain width for better readability */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.athlete-list-item {
+  background-color: var(--primary-bg);
+  /* Darker background for individual rows */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  box-shadow: 0 2px 10px var(--shadow-color);
+  /* Lighter shadow than cards */
+  transition: transform var(--transition-speed), background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
+  overflow: hidden;
+  /* Ensures content respects border-radius */
+}
+
+.athlete-list-item:hover {
+  transform: translateY(-3px);
+  /* Slightly less lift than cards */
+  background-color: var(--secondary-bg);
+  /* Slightly lighter on hover */
+  border-color: var(--accent-color-light);
+  /* Lighter accent border on hover */
+  box-shadow: 0 6px 18px var(--shadow-color);
+  /* More pronounced shadow */
+}
+
+.athlete-link {
+  display: flex;
+  /* Flexbox for horizontal alignment of name and CTA */
+  justify-content: space-between;
+  /* Pushes name to left, CTA to right */
+  align-items: center;
+  /* Vertically centers content */
+  padding: 20px 30px;
+  /* Internal padding for the row */
+  color: var(--text-color-light);
+  text-decoration: none;
+  height: 100%;
+  /* Ensure link fills the list item */
+}
+
+.athlete-link:hover {
+  color: var(--text-color-light);
+  /* Prevent link text color change on hover */
+}
+
+.athlete-name {
+  font-family: var(--font-heading);
+  font-size: 1.5em;
+  /* Slightly smaller than card title */
+  font-weight: 600;
+  color: var(--text-color-light);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  flex-grow: 1;
+  /* Allow name to take up available space */
+  margin-right: 20px;
+  /* Space between name and CTA */
+}
+
+.view-profile-cta {
+  display: inline-block;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+  /* Monospace for digital feel */
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color var(--transition-speed), transform var(--transition-speed);
+  flex-shrink: 0;
+  /* Prevent CTA from shrinking */
+}
+
+.athlete-list-item:hover .view-profile-cta {
+  color: var(--accent-color-light);
+  transform: translateX(5px);
+  /* Slight movement on hover */
+}
+
+/* Responsive adjustments for Athlete List */
+@media (max-width: 768px) {
+  .athlete-list-container {
+    gap: 12px;
+  }
+
+  .athlete-name {
+    font-size: 1.3em;
+  }
+
+  .athlete-link {
+    padding: 18px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .athlete-list-item {
+    border-radius: var(--border-radius-main);
+    /* Keep rounded corners */
+  }
+
+  .athlete-link {
+    flex-direction: column;
+    /* Stack name and CTA vertically */
+    align-items: flex-start;
+    /* Align stacked items to the left */
+    padding: 20px;
+  }
+
+  .athlete-name {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    /* Space between stacked name and CTA */
+    margin-right: 0;
+    /* Remove right margin when stacked */
+  }
+
+  .view-profile-cta {
+    margin-top: 5px;
+    /* Small gap when stacked */
+    transform: none !important;
+    /* Remove horizontal translation on hover when stacked */
+  }
+}

@@ -1,22 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <title>Tournaments</title>      
-
+    <link rel="stylesheet" href="/tournaments_style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <title>MAM SYSTEM | Tournaments</title>    
 </head>
 <body>
-    <%if (tournaments.length===0){%>
-    <p>No tournaments</p>
-    <%}else{%>
-      <ul>
-        <%tournaments.forEach((tournament) =>{%>
-        <li><a href="http://localhost:3000/tournaments/<%=tournament.id%>/categories"><%=tournament.organizer+" "+tournament.location%></a></li>
-        <%})%>
-      </ul>
-    <%}%>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">MAM SYSTEM</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#fighters">FIGHTERS</a></li>
+                    <li><a href="/tournaments" class="active">EVENTS</a></li>
+                    <li><a href="#techniques">TECHNIQUES</a></li>
+                    <li><a href="#analytics">ANALYTICS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="tournaments-list" class="tournaments-section">
+            <div class="container">
+                <h1 class="section-heading">TOURNAMENT ARCHIVE</h1>
+                <% if (tournaments.length === 0) { %>
+                    <div class="no-results-card">
+                        <p class="text-center">No tournaments found at this time.</p>
+                        <p class="text-center small-text">Please check back later for updates.</p>
+                    </div>
+                <% } else { %>
+                    <ul class="tournament-cards-grid">
+                        <% tournaments.forEach((tournament) => { %>
+                            <li class="tournament-card">
+                                <a href="http://localhost:3000/tournaments/<%= tournament.id %>/categories">
+                                    <h2 class="card-title"><%= tournament.organizer %></h2>
+                                    <p class="card-location"><%= tournament.location %></p>
+                                    <span class="view-details-link">View Details &raquo;</span>
+                                </a>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 MAM SYSTEM. All rights reserved.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
 </body>
 </html>

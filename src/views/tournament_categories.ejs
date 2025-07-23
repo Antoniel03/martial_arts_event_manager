@@ -3,19 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categories</title>      
+    <link rel="stylesheet" href="/tournaments_style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <title>MAM SYSTEM | Categories</title>     
 </head>
 <body>
 
-<h1>Categories</h1>
-    <%if (categories.length===0){%>
-    <p>No categories</p>
-    <%}else{%>
-    <ul>
-      <%categories.forEach((category) =>{%>
-      <li><a href="http://localhost:3000/fights/categories/<%=category.id%>"><%="-"+category.weight+"kg/age: "+category.age+" - "+category.sex%></a></li>
-      <%})%>
-    </ul>
-    <%}%>
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">MAM SYSTEM</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#fighters">FIGHTERS</a></li>
+                    <li><a href="/tournaments" class="active">EVENTS</a></li>
+                    <li><a href="#techniques">TECHNIQUES</a></li>
+                    <li><a href="#analytics">ANALYTICS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="categories-list" class="tournaments-section"> <div class="container">
+                <h1 class="section-heading">TOURNAMENT CATEGORIES</h1> 
+                
+                <% if (categories.length === 0) { %>
+                    <div class="no-results-card">
+                        <p class="text-center">No categories found for this tournament.</p>
+                        <p class="text-center small-text">Please check back later or select another event.</p>
+                    </div>
+                <% } else { %>
+                    <ul class="tournament-cards-grid"> <% categories.forEach((category) => { %>
+                            <li class="tournament-card"> <a href="http://localhost:3000/fights/categories/<%= category.id %>">
+                                    <h2 class="card-title">
+                                        <%= category.weight %>kg / <%= category.age %>
+                                    </h2>
+                                    <p class="card-location">
+                                        Division: <%= category.sex %>
+                                    </p>
+                                    <span class="view-details-link">View Bouts &raquo;</span>
+                                </a>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 MAM SYSTEM. All rights reserved.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
 </body>
 </html>

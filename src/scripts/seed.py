@@ -353,20 +353,27 @@ categories=[]
 
 
 def format_fight(fight):
-    red_name=get_name_by_id(fight["red_corner"]["fighter_id"], fighters)
+    red_id=fight["red_corner"]["fighter_id"]
+    blue_id=fight["blue_corner"]["fighter_id"]
+    red_name=get_name_by_id(red_id, fighters)
     red_score=fight["red_corner"]["score"]
-    blue_name=get_name_by_id(fight["blue_corner"]["fighter_id"], fighters)
+    blue_name=get_name_by_id(blue_id, fighters)
     blue_score=fight["blue_corner"]["score"]
 
     formated={
         "id":fight["id"],
         "category_id":fight["category_id"],
         "ring": fight["ring"],
+        "athlete_red_id":red_id,
         "athlete_red": red_name,
+        "athlete_blue_id":blue_id,
         "athlete_blue": blue_name,
         "points_red": red_score,
         "points_blue": blue_score,
+        "fouls_red": fight["red_corner"]["fouls"],
+        "fouls_blue": fight["blue_corner"]["fouls"],
         "status": "in progress",
+        "judge":fight["judge"],
         "winner":"nd"
     }
     return formated
@@ -424,7 +431,7 @@ fighter_id=fighters[0]["id"]
 
 for i in range(len(fighters)): 
 
-    print("current athlete ---------> "+fighters[i]["name"]+" "+fighters[i]["lastname"])
+    # print("current athlete ---------> "+fighters[i]["name"]+" "+fighters[i]["lastname"])
 
     formatted_athlete={"id":fighters[i]["id"],
                         "name":fighters[i]["name"],
@@ -440,7 +447,7 @@ for i in range(len(fighters)):
 
 for fight in fights:
     formatted_fight=format_fight(fight)
-    print(get_name_by_id(fight["red_corner"]["fighter_id"],fighters)+" VS "+get_name_by_id(fight["blue_corner"]["fighter_id"],fighters))
+    # print(get_name_by_id(fight["red_corner"]["fighter_id"],fighters)+" VS "+get_name_by_id(fight["blue_corner"]["fighter_id"],fighters))
     corner_data={"red":fight["red_corner"],"blue":fight["blue_corner"]}
 
     requests.post("http://localhost:"+str(port)+"/fights/results", json=corner_data)

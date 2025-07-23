@@ -1,0 +1,687 @@
+:root {
+  --primary-bg: #111111;
+  /* Very dark nearly black */
+  --secondary-bg: #1C1C1C;
+  /* Slightly lighter for cards */
+  --tertiary-bg: #282828;
+  /* Even lighter for some section backgrounds (though not heavily used on this page) */
+  --text-color-light: #F0F0F0;
+  /* Off-white for general text */
+  --text-color-dark: #B0B0B0;
+  /* Muted gray for secondary text */
+  --accent-color: #6A994E;
+  /* Deep, muted forest green (e.g., for serious, natural feel) */
+  --accent-color-light: #80B060;
+  /* A slightly lighter version of the accent for hover states */
+  --border-color: #333333;
+  /* Darker border for definition */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  /* Dark, subtle shadow */
+
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --border-radius-main: 8px;
+  /* Standard rounded corners */
+  --transition-speed: 0.3s ease-out;
+}
+
+/* --- Base & Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--text-color-light);
+  background-color: var(--primary-bg);
+  -webkit-font-smoothing: antialiased;
+  /* Smoother text rendering */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+  /* Slightly more padding for better spacing */
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+a:hover {
+  color: var(--accent-color-light);
+  /* Use the lighter accent color for hover */
+}
+
+ul {
+  list-style: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.9em;
+  color: var(--text-color-dark);
+}
+
+/* --- Typography --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--text-color-light);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  /* Slightly tighter letter spacing for clean look */
+  margin-bottom: 0.5em;
+}
+
+.section-heading {
+  font-size: 2.5em;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 70px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.section-heading::after {
+  /* Underline effect for section titles */
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  /* Slightly wider */
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+  /* Small rounded ends on the underline */
+}
+
+/* --- Header --- */
+.site-header {
+  background-color: rgba(17, 17, 17, 0.9);
+  /* Opaque background with slight opacity for depth */
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  /* More blur for a 'glass' effect */
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.9em;
+  font-weight: 700;
+  color: var(--text-color-light);
+  letter-spacing: 0.12em;
+}
+
+.logo:hover {
+  color: var(--accent-color);
+  transform: scale(1.01);
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 35px;
+  /* More space out navigation items */
+}
+
+.main-nav a {
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-color-dark);
+  padding: 8px 0;
+  /* More vertical padding */
+  position: relative;
+  transition: color var(--transition-speed);
+}
+
+.main-nav a::after {
+  /* Active/Hover underline - now more like an accent bar */
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  /* Lower the bar */
+  left: 0;
+  /* Start from the left */
+  width: 0%;
+  height: 3px;
+  /* Thicker bar */
+  background-color: var(--accent-color);
+  border-radius: 2px;
+  /* Small rounded ends */
+  transition: width var(--transition-speed), left var(--transition-speed);
+  /* Add left to transition */
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+  width: 100%;
+  left: 0;
+  /* Ensure it moves fully to the left */
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--text-color-light);
+  /* Hover makes it brighter white */
+}
+
+
+/* --- Tournaments Section --- */
+.tournaments-section {
+  padding: 80px 0;
+  /* Consistent section padding */
+  background-color: var(--secondary-bg);
+  /* Use a secondary background for content areas */
+  border-bottom: 1px solid var(--border-color);
+  min-height: 70vh;
+  /* Ensure content area takes up enough vertical space */
+  display: flex;
+  /* Use flexbox to help center content vertically if short */
+  align-items: center;
+  /* Center items vertically */
+}
+
+.tournament-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* Responsive grid for cards */
+  gap: 30px;
+  /* Space between cards */
+  list-style: none;
+  /* Remove default list bullets */
+  padding: 0;
+  margin: 0;
+}
+
+.tournament-card {
+  background-color: var(--primary-bg);
+  /* Darker background for individual cards */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  /* Apply rounded borders */
+  box-shadow: 0 4px 15px var(--shadow-color);
+  /* Subtle shadow for depth */
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+  overflow: hidden;
+  /* Ensures content respects border-radius */
+}
+
+.tournament-card:hover {
+  transform: translateY(-5px);
+  /* Lift effect on hover */
+  box-shadow: 0 8px 25px var(--shadow-color);
+  /* More pronounced shadow */
+  border-color: var(--accent-color);
+  /* Accent border on hover */
+}
+
+.tournament-card a {
+  display: block;
+  /* Make the whole card clickable */
+  padding: 30px;
+  /* Internal padding for card content */
+  color: var(--text-color-light);
+  /* Default text color for card content */
+  text-decoration: none;
+  /* Remove underline from link */
+  height: 100%;
+  /* Ensure link fills card */
+}
+
+.tournament-card a:hover {
+  color: var(--text-color-light);
+  /* Prevent link text from changing color on hover, the card handles the feedback */
+}
+
+.tournament-card .card-title {
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-color-light);
+  /* Title in light color */
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tournament-card .card-location {
+  font-size: 1.1em;
+  color: var(--text-color-dark);
+  /* Location in darker text */
+  margin-bottom: 20px;
+}
+
+.tournament-card .view-details-link {
+  display: inline-block;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+  /* Monospace for a digital feel */
+  color: var(--accent-color);
+  /* Accent color for the link */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color var(--transition-speed), transform var(--transition-speed);
+}
+
+.tournament-card .view-details-link:hover {
+  color: var(--accent-color-light);
+  /* Use the new lighter accent color variable */
+  transform: translateX(5px);
+  /* Slight movement on hover */
+}
+
+.no-results-card {
+  background-color: var(--primary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  padding: 60px 30px;
+  text-align: center;
+  max-width: 600px;
+  margin: 50px auto;
+  /* Center the card */
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.no-results-card p {
+  font-size: 1.2em;
+  color: var(--text-color-light);
+  margin-bottom: 15px;
+}
+
+/* --- Footer --- */
+.site-footer {
+  background-color: #0A0A0A;
+  /* Even darker footer */
+  color: var(--text-color-dark);
+  padding: 35px 0;
+  /* More vertical padding */
+  font-size: 0.9em;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+}
+
+.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  /* Gap for responsiveness */
+}
+
+.site-footer p {
+  margin-bottom: 0;
+  /* Remove default margin from p tag */
+}
+
+.footer-nav ul {
+  display: flex;
+  gap: 25px;
+}
+
+.footer-nav a {
+  color: var(--text-color-dark);
+}
+
+.footer-nav a:hover {
+  color: var(--accent-color);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .site-header .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .main-nav ul {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .section-heading {
+    font-size: 2em;
+  }
+
+  .tournament-cards-grid {
+    grid-template-columns: minmax(280px, 1fr);
+    /* Stack cards on smaller screens */
+  }
+
+  .tournament-card {
+    padding: 30px;
+  }
+
+  .site-footer .container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .tournament-card a {
+    padding: 25px;
+  }
+
+  .tournament-card .card-title {
+    font-size: 1.4em;
+  }
+
+  .tournament-card .card-location {
+    font-size: 1em;
+  }
+}
+
+
+
+/* --- Athlete Profile Specific Styles (New) --- */
+.athlete-profile-content {
+  background-color: var(--secondary-bg);
+  /* Lighter background for the main content block */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  box-shadow: 0 8px 30px var(--shadow-color);
+  /* More pronounced shadow for the main profile block */
+  padding: 40px;
+  max-width: 900px;
+  /* Max width to center the content */
+  margin: 0 auto 50px auto;
+  /* Center with margin at bottom */
+}
+
+.profile-athlete-name {
+  font-size: 2.8em;
+  /* Larger, prominent name */
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-color-light);
+  margin-bottom: 40px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.profile-athlete-name::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  /* A longer underline for the name */
+  height: 4px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+}
+
+.profile-section {
+  margin-bottom: 30px;
+  /* Space between profile sections */
+}
+
+.section-subheading {
+  font-size: 1.6em;
+  /* Size for H3 subheadings */
+  font-weight: 700;
+  color: var(--text-color-light);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 8px;
+  display: inline-block;
+  /* Allows underline to fit text width */
+}
+
+.section-subheading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  /* A shorter underline for subheadings */
+  height: 2px;
+  background-color: var(--accent-color-light);
+  border-radius: 1px;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  /* Responsive grid for stats */
+  gap: 20px;
+  /* Space between stat items */
+}
+
+.compact-stats-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* More compact for striking details */
+}
+
+.stat-item {
+  background-color: var(--primary-bg);
+  /* Darker background for each stat */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-main);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  /* Subtle shadow for stat items */
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 1em;
+  color: var(--text-color-dark);
+  /* Muted for label */
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  /* Monospace for numerical values */
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--accent-color-light);
+  /* Highlight numerical stats */
+  letter-spacing: 0.05em;
+}
+
+/* Utility Class */
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-40 {
+  margin-top: 40px;
+}
+
+/* Fight History within Profile (Reusing Match Item Styles with modifications) */
+.compact-match-list {
+  gap: 10px;
+  /* Smaller gap between match items within profile */
+}
+
+.profile-match-item .match-link {
+  padding: 15px 20px;
+  /* More compact padding for matches in profile */
+  flex-wrap: wrap;
+  /* Allow wrapping of elements */
+  justify-content: flex-start;
+  /* Align elements to start when wrapping */
+}
+
+.profile-match-item .fighter-names {
+  font-size: 1.2em;
+  /* Slightly smaller fighter names */
+  flex-grow: 0;
+  /* Don't force names to fill space */
+  margin-bottom: 0;
+  /* Remove potential margin from default match-item */
+  gap: 10px;
+  /* Smaller gap between names and VS */
+}
+
+.profile-match-item .fighter-red,
+.profile-match-item .fighter-blue {
+  font-size: 1.1em;
+}
+
+.profile-match-item .vs-separator {
+  font-size: 0.9em;
+}
+
+.match-scores {
+  display: flex;
+  gap: 15px;
+  margin-left: auto;
+  /* Push scores to the right */
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--text-color-dark);
+}
+
+.score-red,
+.score-blue {
+  color: var(--text-color-light);
+  /* Make scores stand out slightly */
+  font-weight: 600;
+}
+
+.profile-match-item .view-match-details {
+  font-size: 0.8em;
+  /* Smaller CTA for matches in profile */
+  margin-left: 20px;
+  /* Space it from scores */
+}
+
+/* Responsive adjustments for Athlete Profile */
+@media (max-width: 768px) {
+  .athlete-profile-content {
+    padding: 30px;
+  }
+
+  .profile-athlete-name {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+  }
+
+  .profile-section {
+    margin-bottom: 25px;
+  }
+
+  .section-subheading {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+  }
+
+  .stats-grid,
+  .compact-stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .stat-item {
+    padding: 18px;
+  }
+
+  .stat-label {
+    font-size: 0.95em;
+  }
+
+  .stat-value {
+    font-size: 1.1em;
+  }
+
+  .profile-match-item .match-link {
+    flex-direction: column;
+    /* Stack elements in match item */
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .profile-match-item .fighter-names {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .profile-match-item .match-scores {
+    width: 100%;
+    margin-left: 0;
+    /* Remove auto margin when stacked */
+    justify-content: flex-start;
+    /* Align scores to left */
+    margin-bottom: 10px;
+  }
+
+  .profile-match-item .view-match-details {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .athlete-profile-content {
+    padding: 20px;
+  }
+
+  .profile-athlete-name {
+    font-size: 1.8em;
+  }
+
+  .section-subheading {
+    font-size: 1.2em;
+  }
+
+  .stats-grid,
+  .compact-stats-grid {
+    grid-template-columns: 1fr;
+    /* Stack all stats on very small screens */
+  }
+
+  .stat-item {
+    padding: 15px;
+  }
+}
