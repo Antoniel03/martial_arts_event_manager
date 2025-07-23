@@ -3,44 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <title>Athlete</title>      
+    <link rel="stylesheet" href="/athlete_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <title>MAM SYSTEM | Athlete Profile</title>
 </head>
 <body>
-    <%if (athlete===undefined){%>
-    <h1>Athlete not found</h1>
-    <%}else{%>
-      <h1><%= athlete.name+" "+athlete.lastname %></h1>
-        <div>
-          <h2>Stats</h2>
-          <div> 
-            <h3>Record: <%=stats.record[0]+" - "+stats.record[1]%></h3>
-            <h3>Win rate: <%=stats.win_rate.toFixed(2)+"%"%></h3>
-            <h3>Win gap: <%=stats.win_gap.toFixed(2)+"%"%></h3>
-            <h3>Striking</h3>
-              <%const keys=Object.keys(stats.strikes)%> 
-              <%const values=Object.values(stats.strikes)%> 
-              <%for (let i=0 ; i<keys.length ; i++ ){ %>
-                  <span style="display:inline-block"><h4><%=keys[i]+": "+values[i].toFixed(2)%></h4></span>
-              <%}%>
-            <h3>Average head strikes: <%=stats.body_part_strikes.head.toFixed(2)+""%></h3>
-            <h3>Average body strikes: <%=stats.body_part_strikes.body.toFixed(2)+""%></h3>
-          </div>
-          <div>
-          <h2>Fights (<%=fights.length%>)</h2>
-            <ul>
-              <%fights.forEach((fight) =>{%>
-              <li><a href="http://localhost:3000/fights/match/<%=fight.id%>"><%=fight.athlete_red+" VS "+fight.athlete_blue%></a></li>
-              <p>
-                <%="Red score:"%>
-                <%=fight.points_red%>
-                <%="Blue score:"%>
-                <%=fight.points_blue%>
-                </p>
-              <%})%>
-            </ul>
-          </div>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">MAM SYSTEM</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#fighters" class="active">FIGHTERS</a></li> <li><a href="/tournaments">EVENTS</a></li>
+                    <li><a href="#techniques">TECHNIQUES</a></li>
+                    <li><a href="#analytics">ANALYTICS</a></li>
+                </ul>
+            </nav>
         </div>
-    <%}%>
+    </header>
+
+    <main>
+        <section id="athlete-profile" class="tournaments-section">
+            <div class="container">
+                <h1 class="section-heading">ATHLETE PROFILE</h1>
+
+                <% if (athlete === undefined) { %>
+                    <div class="no-results-card">
+                        <p class="text-center">Athlete not found.</p>
+                        <p class="text-center small-text">Please check the URL or search for another athlete.</p>
+                    </div>
+                <% } else { %>
+                    <div class="athlete-profile-content">
+                        <h2 class="profile-athlete-name"><%= athlete.name %> <%= athlete.lastname %></h2>
+
+                        <div class="profile-section">
+                            <h3 class="section-subheading">Overall Stats</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-label">Record:</span>
+                                    <span class="stat-value"><%= stats.record[0] %> - <%= stats.record[1] %></span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Win Rate:</span>
+                                    <span class="stat-value"><%= stats.win_rate.toFixed(2) %>%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Win Gap:</span>
+                                    <span class="stat-value"><%= stats.win_gap.toFixed(2) %>%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section mt-40">
+                            <h3 class="section-subheading">Striking Metrics</h3>
+                            <div class="stats-grid compact-stats-grid">
+                                <% const keys = Object.keys(stats.strikes); %>
+                                <% const values = Object.values(stats.strikes); %>
+                                <% for (let i = 0; i < keys.length; i++) { %>
+                                    <div class="stat-item">
+                                        <span class="stat-label"><%= keys[i].replace(/_/g, ' ') %>:</span> <span class="stat-value"><%= values[i].toFixed(2) %></span>
+                                    </div>
+                                <% } %>
+                                <div class="stat-item">
+                                    <span class="stat-label">Avg Head Strikes:</span>
+                                    <span class="stat-value"><%= stats.body_part_strikes.head.toFixed(2) %></span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Avg Body Strikes:</span>
+                                    <span class="stat-value"><%= stats.body_part_strikes.body.toFixed(2) %></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section mt-40">
+                            <h3 class="section-subheading">Fight History (<%= fights.length %>)</h3>
+                            <% if (fights.length === 0) { %>
+                                <p class="text-center small-text mt-20">No fight history available for this athlete.</p>
+                            <% } else { %>
+                                <ul class="match-list-container compact-match-list"> <% fights.forEach((fight) => { %>
+                                        <li class="match-item profile-match-item">
+                                            <a href="http://localhost:3000/fights/match/<%= fight.id %>" class="match-link">
+                                                <div class="fighter-names">
+                                                    <span class="fighter-red"><%= fight.athlete_red %></span>
+                                                    <span class="vs-separator">VS</span>
+                                                    <span class="fighter-blue"><%= fight.athlete_blue %></span>
+                                                </div>
+                                                <div class="match-scores">
+                                                    <span class="score-red">R: <%= fight.points_red %></span>
+                                                    <span class="score-blue">B: <%= fight.points_blue %></span>
+                                                </div>
+                                                <span class="view-match-details">View &raquo;</span>
+                                            </a>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 MAM SYSTEM. All rights reserved.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
 </body>
 </html>

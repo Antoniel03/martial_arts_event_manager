@@ -3,19 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <title>Fights</title>      
+    <!-- Link to your existing stylesheet -->
+    <link rel="stylesheet" href="/athletes_style.css">
+    <!-- Ensure fonts are linked, same as other pages -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <title>MAM SYSTEM | Fights</title>
 </head>
 <body>
 
-<h1>Fights</h1>
-      <%if(matches.length==0) {%>
-      <p>No matches</p>
-      <%}else{%>
-      <ul>
-        <%matches.forEach((match) =>{%>
-          <li><a href="http://localhost:3000/fights/match/<%=match.id%>"><%= match.athlete_red+" VS "+match.athlete_blue%></a></li> <%})%>
-      </ul>
-      <%}%>
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">MAM SYSTEM</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#fighters">FIGHTERS</a></li>
+                    <li><a href="/tournaments" class="active">EVENTS</a></li> <!-- Assuming fights are under events -->
+                    <li><a href="#techniques">TECHNIQUES</a></li>
+                    <li><a href="#analytics">ANALYTICS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="fights-list" class="tournaments-section">
+            <div class="container">
+                <h1 class="section-heading">MATCH BOUTS</h1>
+
+                <% if (matches.length === 0) { %>
+                    <div class="no-results-card">
+                        <p class="text-center">No matches found for this category.</p>
+                        <p class="text-center small-text">Please check back later or select another category.</p>
+                    </div>
+                <% } else { %>
+                    <ul class="match-list-container"> <!-- New container for fight list style -->
+                        <% matches.forEach((match) => { %>
+                            <li class="match-item"> <!-- New item class for each match row -->
+                                <a href="http://localhost:3000/fights/match/<%= match.id %>" class="match-link">
+                                    <div class="fighter-names">
+                                        <span class="fighter-red"><%= match.athlete_red %></span>
+                                        <span class="vs-separator">VS</span>
+                                        <span class="fighter-blue"><%= match.athlete_blue %></span>
+                                    </div>
+                                    <span class="view-match-details">View Match &raquo;</span>
+                                </a>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 MAM SYSTEM. All rights reserved.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
 </body>
 </html>

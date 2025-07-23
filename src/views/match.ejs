@@ -3,81 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <title>Match <%=match.ring%></title>
-  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
- <script>
+    <title>Match <%=match.ring%> | MAM System</title>
+    <link rel="stylesheet" href="/match_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script>
         const socket = io(); 
-
         const currentUrl = window.location.href;
         const url = new URL(currentUrl);
         const queryParams = url.searchParams
 
-        console.log("Current URL:", currentUrl);        socket.on('msg', (msg) => {
-            const ring =parseInt(queryParams.get("ring")) 
-            if(msg.ring==ring){
+        console.log("Current URL:", currentUrl);        
+        socket.on('msg', (msg) => {
+            const ring = parseInt(queryParams.get("ring")) 
+            if(msg.ring == ring){
               const marker = document.getElementById(msg.header_id);
-              marker.textContent=msg.points;
+              marker.textContent = msg.points;
             }
         });
-
     </script>
-      
 </head>
 <body>
-
-
-    <% if (match.status!="idle"){%>
-    <div>
-      <h1 style="text-align:center">Ring <%=match.ring%></h1>
-    </div>
-
-    <div style="display:flex;justify-content:center">
-      <span style="display:inline-block">
-        <div class="red_corner">  
-          <div class="corner_name">   
-            <span>
-              <h2>Red corner</h2>
-            </span>
-
-            <span>
-
-              <h2><%=match.athlete_red%></h2>
-            </span>
-
-          </div>
-
-          <h3>Points</h3>
-          <h4 id="points_red"><%=match.points_red%></h4>
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">MAM SYSTEM</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/athletes">FIGHTERS</a></li>
+                    <li><a href="/tournaments">EVENTS</a></li>
+                    <li><a href="#techniques">TECHNIQUES</a></li>
+                    <li><a href="#analytics">ANALYTICS</a></li>
+                </ul>
+            </nav>
         </div>
-      </span>
+    </header>
 
-      
-      <span style="display:inline-block">
-        <div class="blue_corner">        
-          <div class="corner_name">   
-
-            <span>
-              <h2>Blue corner</h2>
-            </span>
-            <span>
-              <h2><%=match.athlete_blue%></h2>
-            </span>
-
-          </div>
-
-          <h3>Points</h3>
-          <h4 id="points_blue"><%=match.points_blue%></h4>
-
+    <main class="match-container">
+        <% if (match.status != "idle") { %>
+        <div class="match-header">
+            <h1 class="ring-title">Ring <%=match.ring%></h1>
+            <div class="judge-info">
+                <span class="judge-label">OFFICIAL JUDGE:</span>
+                <span class="judge-name"><%=match.judge%></span>
+            </div>
         </div>
-      </span>
 
-    </div>
+        <div class="match-header">
+                <span class="judge-name"><%=match.status%></span>
+        </div>
 
-    <% } else{%>
-      <p style="text-align:center">waiting for data</p>
-    <% } %>
-    <p id="test"></p>
+        <div class="corners-wrapper">
+            <div class="corner red-corner">  
+                <div class="corner-header">   
+                    <h2 class="corner-label">RED CORNER</h2>
+                    <h2 class="fighter-name"><%=match.athlete_red%></h2>
+                </div>
 
+                <div class="stats-section">
+                    <div class="stat-box">
+                        <h3 class="stat-label">POINTS</h3>
+                        <h4 class="stat-value" id="points_red"><%=match.points_red%></h4>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <h3 class="stat-label">FOULS</h3>
+                        <div class="fouls-list">
+                            <% match.fouls_red.forEach((fouls) => { %>
+                              <%if (fouls!=""){%>
+                              <span class="foul-item"><%=fouls%></span>
+                              <%}%>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="corner blue-corner">        
+                <div class="corner-header">   
+                    <h2 class="corner-label">BLUE CORNER</h2>
+                    <h2 class="fighter-name"><%=match.athlete_blue%></h2>
+                </div>
+
+                <div class="stats-section">
+                    <div class="stat-box">
+                        <h3 class="stat-label">POINTS</h3>
+                        <h4 class="stat-value" id="points_blue"><%=match.points_blue%></h4>
+                    </div>
+                    
+                    <div class="stat-box">
+                        <h3 class="stat-label">FOULS</h3>
+                        <div class="fouls-list">
+                            <% match.fouls_blue.forEach((fouls) => { %>
+                              <%if (fouls!=""){%>
+                              <span class="foul-item"><%=fouls%></span>
+                              <%}%>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% } else { %>
+        <div class="waiting-message">
+            <p>WAITING FOR DATA</p>
+        </div>
+        <% } %>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 APEX STATS. All rights reserved.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
 </body>
 </html>
