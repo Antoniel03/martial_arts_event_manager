@@ -7,7 +7,7 @@ export const athletesRouter = Router();
 export let athletes = [];
 export let athleteStats = [];
 
-function get_athlete_by_id(id) {
+export function get_athlete_by_id(id) {
   for (let i = 0; i < athletes.length; i++) {
     if (athletes[i].id === id) {
       return athletes[i];

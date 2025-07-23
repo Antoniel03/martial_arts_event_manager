@@ -1,5 +1,6 @@
 import { getAthleteStats } from "../routes/athletes.js"; // Ensure correct path and .js extension
 import { athleteStats } from "../routes/athletes.js"; // Ensure correct path and .js extension
+import { get_athlete_by_id } from "../routes/athletes.js"; // Ensure correct path and .js extension
 
 export let matches = [];
 export let cornerResults = [];
