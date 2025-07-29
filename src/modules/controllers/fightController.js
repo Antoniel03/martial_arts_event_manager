@@ -37,10 +37,10 @@ export class FightController {
   };
 
   updateFightPoints = (req, res) => {
-    const { ring, points } = req.body;
-    const corner = req.query.corner;
+    const fight_id = req.params.id;
+    const { corner, points } = req.body;
 
-    if (!ring || !points || !corner) {
+    if (!fight_id || !points || !corner) {
       return res.status(400).send(
         "Missing ring, points, or corner in request.",
       );
@@ -48,7 +48,7 @@ export class FightController {
 
     try {
       const updated = this.#fightService.updateFightPoints(
-        ring,
+        fight_id,
         corner,
         points,
       );

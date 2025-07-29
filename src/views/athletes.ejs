@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="es"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/athlete_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
-    <title>MAM SYSTEM | Athlete Profile</title>
-</head>
+    <title>PUNTO ÓPTIMO | Perfil de Atleta</title> </head>
 <body>
 
     <header class="site-header">
         <div class="container">
-            <a href="/" class="logo">MAM SYSTEM</a>
+            <a href="/" class="logo">PUNTO ÓPTIMO</a>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#fighters" class="active">FIGHTERS</a></li> <li><a href="/tournaments">EVENTS</a></li>
-                    <li><a href="#techniques">TECHNIQUES</a></li>
-                    <li><a href="#analytics">ANALYTICS</a></li>
-                </ul>
+                    <li><a href="/athletes" class="active">LUCHADORES</a></li> <li><a href="/tournaments">EVENTOS</a></li>
             </nav>
         </div>
     </header>
@@ -25,61 +20,54 @@
     <main>
         <section id="athlete-profile" class="tournaments-section">
             <div class="container">
-                <h1 class="section-heading">ATHLETE PROFILE</h1>
-
-                <% if (athlete === undefined) { %>
+                <h1 class="section-heading">PERFIL DEL ATLETA</h1> <% if (athlete === undefined) { %>
                     <div class="no-results-card">
-                        <p class="text-center">Athlete not found.</p>
-                        <p class="text-center small-text">Please check the URL or search for another athlete.</p>
-                    </div>
+                        <p class="text-center">Atleta no encontrado.</p> <p class="text-center small-text">Por favor, verifica la URL o busca otro atleta.</p> </div>
                 <% } else { %>
                     <div class="athlete-profile-content">
                         <h2 class="profile-athlete-name"><%= athlete.name %> <%= athlete.lastname %></h2>
 
+                        <div class="athlete-details-summary">
+                            <p class="detail-item"><span class="detail-label">Rango:</span> <span class="detail-value"><%= athlete.rank %></span></p> <p class="detail-item"><span class="detail-label">Peso:</span> <span class="detail-value"><%= athlete.weight %> kg</span></p> <p class="detail-item"><span class="detail-label">Equipo:</span> <span class="detail-value"><%= athlete.team || 'N/A' %></span></p> <p class="detail-item"><span class="detail-label">Estilo de Lucha:</span> <span class="detail-value"><%= athlete.fighting_style || 'N/A' %></span></p> </div>
+
                         <div class="profile-section">
-                            <h3 class="section-subheading">Overall Stats</h3>
-                            <div class="stats-grid">
+                            <h3 class="section-subheading">Estadísticas Generales</h3> <div class="stats-grid">
                                 <div class="stat-item">
-                                    <span class="stat-label">Record:</span>
-                                    <span class="stat-value"><%= stats.record[0] %> - <%= stats.record[1] %></span>
+                                    <span class="stat-label">Récord:</span> <span class="stat-value"><%= stats.record[0] %> - <%= stats.record[1] %></span>
                                 </div>
                                 <div class="stat-item">
-                                    <span class="stat-label">Win Rate:</span>
-                                    <span class="stat-value"><%= stats.win_rate.toFixed(2) %>%</span>
+                                    <span class="stat-label">Porcentaje de Victorias:</span> <span class="stat-value"><%= stats.win_rate.toFixed(2) %>%</span>
                                 </div>
                                 <div class="stat-item">
-                                    <span class="stat-label">Win Gap:</span>
-                                    <span class="stat-value"><%= stats.win_gap.toFixed(2) %>%</span>
+                                    <span class="stat-label">Diferencia de Victorias:</span> <span class="stat-value"><%= stats.win_gap.toFixed(2) %>%</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="profile-section mt-40">
-                            <h3 class="section-subheading">Striking Metrics</h3>
-                            <div class="stats-grid compact-stats-grid">
-                                <% const keys = Object.keys(stats.strikes); %>
-                                <% const values = Object.values(stats.strikes); %>
-                                <% for (let i = 0; i < keys.length; i++) { %>
+                            <% if (stats.strikes === undefined) { %>
+                                <h3 class="section-subheading">No se encontró información.</h3> <% }else{ %>
+                                <h3 class="section-subheading">Métricas de Golpeo</h3> <div class="stats-grid compact-stats-grid">
+                                    <% const keys = Object.keys(stats.strikes); %>
+                                    <% const values = Object.values(stats.strikes); %>
+                                    <% for (let i = 0; i < keys.length; i++) { %>
+                                        <div class="stat-item">
+                                            <span class="stat-label"><%= keys[i].replace(/_/g, ' ') %>:</span> <span class="stat-value"><%= values[i].toFixed(2) %></span>
+                                        </div>
+                                    <% } %>
                                     <div class="stat-item">
-                                        <span class="stat-label"><%= keys[i].replace(/_/g, ' ') %>:</span> <span class="stat-value"><%= values[i].toFixed(2) %></span>
+                                        <span class="stat-label">Golpes a la Cabeza (Promedio):</span> <span class="stat-value"><%= stats.body_part_strikes.head.toFixed(2) %></span>
                                     </div>
-                                <% } %>
-                                <div class="stat-item">
-                                    <span class="stat-label">Avg Head Strikes:</span>
-                                    <span class="stat-value"><%= stats.body_part_strikes.head.toFixed(2) %></span>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Golpes al Cuerpo (Promedio):</span> <span class="stat-value"><%= stats.body_part_strikes.body.toFixed(2) %></span>
+                                    </div>
                                 </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Avg Body Strikes:</span>
-                                    <span class="stat-value"><%= stats.body_part_strikes.body.toFixed(2) %></span>
-                                </div>
-                            </div>
+                            <% } %>
                         </div>
 
                         <div class="profile-section mt-40">
-                            <h3 class="section-subheading">Fight History (<%= fights.length %>)</h3>
-                            <% if (fights.length === 0) { %>
-                                <p class="text-center small-text mt-20">No fight history available for this athlete.</p>
-                            <% } else { %>
+                            <h3 class="section-subheading">Historial de Peleas (<%= fights.length %>)</h3> <% if (fights.length === 0) { %>
+                                <p class="text-center small-text mt-20">No hay historial de peleas disponible para este atleta.</p> <% } else { %>
                                 <ul class="match-list-container compact-match-list"> <% fights.forEach((fight) => { %>
                                         <li class="match-item profile-match-item">
                                             <a href="http://localhost:3000/fights/match/<%= fight.id %>" class="match-link">
@@ -90,10 +78,8 @@
                                                 </div>
                                                 <div class="match-scores">
                                                     <span class="score-red">R: <%= fight.points_red %></span>
-                                                    <span class="score-blue">B: <%= fight.points_blue %></span>
-                                                </div>
-                                                <span class="view-match-details">View &raquo;</span>
-                                            </a>
+                                                    <span class="score-blue">A: <%= fight.points_blue %></span> </div>
+                                                <span class="view-match-details">Ver Detalles &raquo;</span> </a>
                                         </li>
                                     <% }) %>
                                 </ul>
@@ -107,12 +93,9 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2025 MAM SYSTEM. All rights reserved.</p>
-            <nav class="footer-nav">
+            <p>&copy; 2025 PUNTO ÓPTIMO. Todos los derechos reservados.</p> <nav class="footer-nav">
                 <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
+                    <li><a href="#">Política de Privacidad</a></li> <li><a href="#">Términos de Servicio</a></li> </ul>
             </nav>
         </div>
     </footer>

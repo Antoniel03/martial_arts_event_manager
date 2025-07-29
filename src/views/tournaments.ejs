@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/tournaments_style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
-    <title>MAM SYSTEM | Tournaments</title>    
+    <title>PUNTO ÓPTIMO | Torneos</title>     
 </head>
 <body>
 
     <header class="site-header">
         <div class="container">
-            <a href="/" class="logo">MAM SYSTEM</a>
+            <a href="/" class="logo">PUNTO ÓPTIMO</a>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#fighters">FIGHTERS</a></li>
-                    <li><a href="/tournaments" class="active">EVENTS</a></li>
-                    <li><a href="#techniques">TECHNIQUES</a></li>
-                    <li><a href="#analytics">ANALYTICS</a></li>
+                    <li><a href="/athletes">LUCHADORES</a></li>
+                    <li><a href="/tournaments" class="active">EVENTOS</a></li>
                 </ul>
             </nav>
         </div>
@@ -26,20 +24,21 @@
     <main>
         <section id="tournaments-list" class="tournaments-section">
             <div class="container">
-                <h1 class="section-heading">TOURNAMENT ARCHIVE</h1>
+                <h1 class="section-heading">ARCHIVO DE TORNEOS</h1>
                 <% if (tournaments.length === 0) { %>
                     <div class="no-results-card">
-                        <p class="text-center">No tournaments found at this time.</p>
-                        <p class="text-center small-text">Please check back later for updates.</p>
+                        <p class="text-center">No se encontraron torneos en este momento.</p>
+                        <p class="text-center small-text">Vuelve a consultar más tarde para ver las actualizaciones.</p>
                     </div>
                 <% } else { %>
                     <ul class="tournament-cards-grid">
                         <% tournaments.forEach((tournament) => { %>
                             <li class="tournament-card">
                                 <a href="http://localhost:3000/tournaments/<%= tournament.id %>/categories">
-                                    <h2 class="card-title"><%= tournament.organizer %></h2>
+                                    <h2 class="card-title"><%= tournament.name+"("+tournament.sport_type+")"%></h2>
                                     <p class="card-location"><%= tournament.location %></p>
-                                    <span class="view-details-link">View Details &raquo;</span>
+                                    <p class="card-date"><%= "Desde el "+tournament.starting_date+" hasta el "+tournament.ending_date%></p>
+                                    <span class="view-details-link">Ver Detalles &raquo;</span>
                                 </a>
                             </li>
                         <% }) %>
@@ -51,11 +50,11 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2025 MAM SYSTEM. All rights reserved.</p>
+            <p>&copy; 2025 PUNTO ÓPTIMO. Todos los derechos reservados.</p>
             <nav class="footer-nav">
                 <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos de Servicio</a></li>
                 </ul>
             </nav>
         </div>

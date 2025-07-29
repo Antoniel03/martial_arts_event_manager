@@ -20,7 +20,7 @@ export const fightsRouter = (io) => {
 
   // Route to update points for a fight
   // PUT /fights/point
-  router.put("/point", fightController.updateFightPoints);
+  router.put("/point/:id", fightController.updateFightPoints);
 
   // Route to get a single match by ring number
   // GET /fights/match

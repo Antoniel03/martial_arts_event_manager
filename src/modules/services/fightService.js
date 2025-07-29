@@ -24,9 +24,9 @@ export class FightService {
       fight.strikes_landed.forEach((strike) => {
         const targetBodyPart = strike[1];
 
-        if (targetBodyPart === "body") {
+        if (targetBodyPart === "Cuerpo") {
           totalBodyStrikes++;
-        } else if (targetBodyPart === "head") {
+        } else if (targetBodyPart === "Cabeza") {
           totalHeadStrikes++;
         }
       });
@@ -59,7 +59,7 @@ export class FightService {
     );
 
     fighterFights.forEach((fighterFight) => {
-      if (fighterFight.result === "Winner") {
+      if (fighterFight.result === "Ganador") {
         const opponentFight = fightDataArray.find(
           (fight) =>
             fight.fight_id === fighterFight.fight_id &&
@@ -90,8 +90,8 @@ export class FightService {
     return matchesArray.find((match) => match.ring == ring);
   }
 
-  #getFightIndex(matchesArray, ring) {
-    return matchesArray.findIndex((match) => match.ring == ring);
+  #getFightIndex(matchesArray, id) {
+    return matchesArray.findIndex((match) => match.id == id);
   }
 
   getFightsByCategory(categoryId) {
@@ -100,7 +100,7 @@ export class FightService {
 
   createFight(fightData) {
     matches.push(fightData);
-    console.log("New fight added:", fightData);
+    // console.log("New fight added:", fightData);
     return fightData;
   }
 
@@ -147,7 +147,7 @@ export class FightService {
   }
 
   updateRecord(index, result) {
-    if (result === "Winner") {
+    if (result === "Ganador") {
       athleteStats[index].record[0]++;
     } else {
       athleteStats[index].record[1]++;
@@ -166,7 +166,7 @@ export class FightService {
 
     for (let i = 0; i < athleteStats.length; i++) {
       if (athleteStats[i].fighter_id === fighterId) {
-        console.log("actual stats:\n", athleteStats[i]);
+        // console.log("actual stats:\n", athleteStats[i]);
         athleteStats[i].strikes = updatedStats;
         this.updateRecord(i, result);
         athleteStats[i].win_rate = this.updateWinRate(athleteStats[i].record);
@@ -178,7 +178,7 @@ export class FightService {
           fighterId,
         );
 
-        console.log("updated:\n", athleteStats[i]);
+        // console.log("updated:\n", athleteStats[i]);
       }
     }
   }
@@ -186,17 +186,17 @@ export class FightService {
   createCornerResult(cornerData) {
     cornerResults.push(cornerData.red);
     cornerResults.push(cornerData.blue);
-    console.log("New corner result added:", cornerData);
+    // console.log("New corner result added:", cornerData);
     this.updateStats(cornerData.red.fighter_id, cornerData.red.result);
     this.updateStats(cornerData.blue.fighter_id, cornerData.blue.result);
     return cornerData;
   }
 
-  updateFightPoints(ring, corner, points) {
-    const index = this.#getFightIndex(matches, ring);
+  updateFightPoints(id, corner, points, fouls) {
+    const index = this.#getFightIndex(matches, id);
 
     if (index === -1) {
-      console.warn(`Fight with ring ${ring} not found for point update.`);
+      console.warn(`Fight with id ${id} not found for point update.`);
       return false;
     }
 
@@ -221,10 +221,11 @@ export class FightService {
       this.#io.emit("msg", {
         header_id: headerId,
         points: updatedPoints,
-        ring: fight.ring,
+        id: id,
+        // ring: fight.ring,
       });
       console.log(
-        `Emitted Socket.IO update for ring ${ring}, corner ${corner}: ${updatedPoints} points`,
+        `Emitted Socket.IO update for fight id ${id}, corner ${corner}: ${updatedPoints} points`,
       );
     } else {
       console.warn(

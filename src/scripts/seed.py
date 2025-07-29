@@ -8,36 +8,35 @@ import time
 
 
 
-
+styles=["Karate", "Kenpo", "Taekwondo", "Kickboxing", "Kung Fu"]
 tournaments=["Tournament 1", "Tournament 2","Tournament 3"]
 
-fight_status=["ended",
-              "in progress",
-              "ended",
-              "idle"]
+fight_status=["Terminado",
+              "En progreso",
+              "Pausado"]
 
-match_result=["Winner",
-              "Loser"]
+match_result=["Ganador",
+              "Perdedor"]
 
-body_parts=["head",
-         "body"]
+body_parts=["Cabeza",
+         "Cuerpo"]
 
-strikes=[["Kick","head"],
-         ["Backfist","head"],
-         ["Cross","head"],
-         ["Spinning kick","head"],
+strikes=[["Patada","Cabeza"],
+         ["Reverso","Cabeza"],
+         ["Puño recto","Cabeza"],
+         ["Patada giratoria","Cabeza"],
 
-         ["Kick","body"],
-         ["Backfist","body"],
-         ["Cross","body"],
-         ["Spinning kick", "body"]
+         ["Patada","Cuerpo"],
+         ["Reverso","Cuerpo"],
+         ["Puño recto","Cuerpo"],
+         ["Patada giratoria", "Cuerpo"]
          ]
 
 
 
-fouls=["Disrespect",
-       "Illegal shot",
-       "Out",
+fouls=["Salida",
+       "Golpe ilegal",
+       "Conducta inapropiada",
        "",
        "",
        "",
@@ -85,10 +84,12 @@ f.add_provider(body_part_provider)
 def generate_tournament():
     tournament = dict()
     tournament["id"]=f.uuid4()
+    tournament["name"]="Tournament "+f.random_letter().upper()
     tournament["organizer"]=f.name()
     tournament["location"]=f.country()
     tournament["starting_date"]="x"
     tournament["ending_date"]="x"
+    tournament["sport_type"]="Open"
     return tournament
 
 def generate_category(tournament_id):
@@ -96,8 +97,11 @@ def generate_category(tournament_id):
     category["tournament_id"]=tournament_id
     category["id"]=f.uuid4()
     category["weight"]=f.random_int(40,100)
-    category["age"]=f.random_int(7,100)
-    category["sex"]=["Male","Female"][f.random_int(0,1)]
+    category["min_age"]=f.random_int(7,100)
+    category["max_age"]=f.random_int(7,100)
+    category["max_rank"]="Blanco"
+    category["min_rank"]="Amarillo"
+    category["sex"]=["Masculino","Femenino"][f.random_int(0,1)]
     return category
 
 
@@ -166,7 +170,7 @@ def generate_fight(fighter_a, fighter_b):
         "winner":corner_results["winner"],
         "loser":corner_results["loser"],
         "judge":f.name(),
-        "status":"in progress",
+        "status":"Terminado",
         "date":"x"#f.date()
     }
     return fight
@@ -179,18 +183,18 @@ def generate_corner_results(fight_id,fighter_a, fighter_b):
 
     if winner=="red":
         red_result=generate_corner_result(fight_id,fighter_a["id"],1,9)
-        red_result["result"]="Winner"
+        red_result["result"]="Ganador"
         blue_result=generate_corner_result(fight_id,fighter_b["id"],0,red_result["score"])
-        blue_result["result"]="Loser"
+        blue_result["result"]="Perdedor"
         result["loser"]="blue"
         result["red"]=red_result
         result["blue"]=blue_result
 
     else:
         blue_result=generate_corner_result(fight_id,fighter_b["id"],1,9)
-        blue_result["result"]="Winner"
+        blue_result["result"]="Ganador"
         red_result=generate_corner_result(fight_id,fighter_a["id"],0,blue_result["score"])
-        red_result["result"]="Loser"
+        red_result["result"]="Perdedor"
         result["loser"]="red"
         result["red"]=red_result
         result["blue"]=blue_result
@@ -265,8 +269,9 @@ def get_name_by_id(id, fighters):
 
 def generate_fighter():
     fighter = {"id":f.uuid4(),
-               "academy":"?",
+               "academy":"Academia "+f.random_letter().upper(),
                "name":f.first_name(),
+               "fighting_style":styles[random.randint(0,4)],
                "lastname":f.last_name(),
                 "weight":random.randint(40,80),
                 "birthday": "x",#f.date_of_birth(),
@@ -372,17 +377,17 @@ def format_fight(fight):
         "points_blue": blue_score,
         "fouls_red": fight["red_corner"]["fouls"],
         "fouls_blue": fight["blue_corner"]["fouls"],
-        "status": "in progress",
+        "status": "Terminado",
         "judge":fight["judge"],
         "winner":"nd"
     }
     return formated
 
 port=3000
-n_categories=5
-n_tournaments=5
-n_fighters=40
-n_fights_per_fighter=50
+n_categories=4
+n_tournaments=2
+n_fighters=20
+n_fights_per_fighter=20
 
 
 for i in range(n_tournaments):
@@ -435,10 +440,14 @@ for i in range(len(fighters)):
 
     formatted_athlete={"id":fighters[i]["id"],
                         "name":fighters[i]["name"],
-                        "lastname":fighters[i]["lastname"]
+                        "lastname":fighters[i]["lastname"],
+                       "weight":fighters[i]["weight"],
+                       "fighting_style":fighters[i]["fighting_style"]
     }
     # print(fighters[i]["stats"])
-    athlete_info={"id":fighters[i]["id"],"name":fighters[i]["name"],"lastname":fighters[i]["lastname"]}
+    athlete_info={"id":fighters[i]["id"],"name":fighters[i]["name"],"lastname":fighters[i]["lastname"],
+                  "weight":fighters[i]["weight"],"fighting_style":fighters[i]["fighting_style"],
+                  "team":"Team "+f.random_letter().upper(), "rank":"Rank"+f.random_letter().upper()}
     # print(athlete_info)
     # requests.post("http://localhost:3000/fights", formatted_fight)
     # print(json.dumps(athlete_info,indent=4))

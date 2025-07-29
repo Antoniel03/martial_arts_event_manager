@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/tournaments_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <title>PUNTO ÓPTIMO | Crear Torneo</title> </head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">PUNTO ÓPTIMO</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/athletes">LUCHADORES</a></li> <li><a href="/tournaments" class="active">EVENTOS</a></li> </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="create-tournament" class="registration-section">
+            <div class="container">
+                <h1 class="section-heading">CREAR NUEVO TORNEO</h1> <form action="/tournaments" method="POST" class="registration-form">
+                    
+                    <div class="form-group">
+                        <input type="hidden" id="id" name="id" value="tournament_test_id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tournamentName">Nombre del Torneo:</label> <input type="text" id="tournamentName" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organizerName">Nombre del Organizador:</label> <input type="text" id="organizerName" name="organizer" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startingDate">Fecha de Inicio:</label> <input type="date" id="startingDate" name="starting_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endingDate">Fecha de Fin:</label> <input type="date" id="endingDate" name="ending_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Ubicación:</label> <input type="text" id="location" name="location" placeholder="Ej: Ciudad Guayana, Bolívar" required> </div>
+
+                    <div class="form-group">
+                        <label for="sportType">Tipo de Deporte:</label> <select id="sportType" name="sport_type" required>
+                            <option value="">Seleccionar Deporte...</option> <option value="Karate">Karate</option>
+                            <option value="Taekwondo">Taekwondo</option>
+                            <option value="Kickboxing">Kickboxing</option>
+                            <option value="Open">Abierto</option> </select>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        <label for="agreeTerms">Confirmo que he leído y acepto el <a href="#">Acuerdo del Organizador del Torneo</a></label> </div>
+
+                    <button type="submit" class="submit-button">Crear Torneo</button> </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 PUNTO ÓPTIMO. Todos los derechos reservados.</p> <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li> <li><a href="#">Términos de Servicio</a></li> </ul>
+            </nav>
+        </div>
+    </footer>
+
+</body>
+</html>
