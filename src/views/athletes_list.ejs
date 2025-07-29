@@ -1,28 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="es"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athletes</title>      
+    <title>PUNTO ÓPTIMO | Luchadores</title> <link rel="stylesheet" href="/index_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>      
-      <h1>Athletes</h1>
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-          </ul>
-        </nav>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">PUNTO ÓPTIMO</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/athletes" class="active">LUCHADORES</a></li> <li><a href="/tournaments">EVENTOS</a></li> </ul>
+            </nav>
+        </div>
     </header>
 
-    <%if (athletes.length===0){%>
-    <p>No athletes</p>
-    <%}else{%>
-    <ul>
-      <%athletes.forEach((athlete) =>{%>
-      <li><a href="http://localhost:3000/athletes/<%=athlete.id%>"><%=athlete.name+" "+athlete.lastname%></a></li>
-      <%})%>
-    </ul>
-    <%}%>
+        <main class="main-content">
+            <section id="athlete-list" class="detailed-data-section">
+                <div class="container">
+                    <h2 class="section-heading">Todos los Luchadores</h2> <% if (athletes.length === 0) { %>
+                        <p class="no-data-message">No hay atletas registrados aún.</p> <p class="small-text text-center">Utiliza la herramienta "Registrar Atleta" en la barra lateral para añadir nuevos luchadores.</p> <% } else { %>
+                        <div class="athlete-grid">
+                            <% athletes.forEach(function(athlete) { %>
+                                <div class="athlete-card">
+                                    <a href="http://localhost:3000/athletes/<%= athlete.id %>" class="athlete-link">
+                                        <h3 class="athlete-name"><%= athlete.name %> <%= athlete.lastname %></h3>
+                                        <p class="athlete-detail">Equipo: <span class="detail-value"><%= athlete.team|| 'N/A' %></span></p> 
+                                        <p class="athlete-detail">Estilo: <span class="detail-value"><%= athlete.fighting_style%></span></p> </a>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } %>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 PUNTO ÓPTIMO. Todos los derechos reservados.</p> <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li> <li><a href="#">Términos de Servicio</a></li> </ul>
+            </nav>
+        </div>
+    </footer>
+
 </body>
 </html>

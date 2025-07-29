@@ -443,3 +443,475 @@ h6 {
     font-size: 2.8em;
   }
 }
+
+/* --- New Layout Variables --- */
+:root {
+  /* ... (your existing variables) ... */
+  --sidebar-width: 250px;
+  /* Define a width for the sidebar */
+}
+
+/* --- Content Wrapper for Sidebar Layout --- */
+.content-wrapper {
+  display: flex;
+  /* Enables Flexbox for side-by-side layout */
+  min-height: calc(100vh - 100px);
+  /* Adjust height to fill viewport minus header/footer approximate height */
+  padding-top: 0;
+  /* No need for top padding here, header is sticky */
+}
+
+/* --- Sidebar Styles --- */
+.sidebar {
+  width: var(--sidebar-width);
+  /* Fixed width for the sidebar */
+  background-color: var(--secondary-bg);
+  /* Use a slightly lighter background than primary */
+  padding: 30px 20px;
+  border-right: 1px solid var(--border-color);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  /* Subtle shadow on the right edge */
+  flex-shrink: 0;
+  /* Prevents sidebar from shrinking */
+}
+
+.sidebar-heading {
+  font-family: var(--font-heading);
+  font-size: 1.5em;
+  color: var(--accent-color);
+  /* Use accent color for the heading */
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li {
+  margin-bottom: 15px;
+  /* Spacing between list items */
+}
+
+.sidebar-nav a {
+  display: block;
+  /* Make the whole link area clickable */
+  padding: 12px 15px;
+  /* Padding around link text */
+  color: var(--text-color-light);
+  /* Default link color */
+  font-family: var(--font-body);
+  font-size: 1.05em;
+  text-decoration: none;
+  border-radius: 5px;
+  /* Slightly rounded corners for links */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  /* Add .active class if you want to highlight current page */
+  background-color: var(--tertiary-bg);
+  /* Darker background on hover/active */
+  color: var(--accent-color);
+  /* Accent color text on hover/active */
+  border-left: 4px solid var(--accent-color);
+  /* Highlight bar on left */
+  padding-left: 11px;
+  /* Adjust padding due to border */
+}
+
+/* --- Main Content Adjustment --- */
+.main-content {
+  flex-grow: 1;
+  /* Allows main content to take up remaining space */
+  padding-left: 0;
+  /* Ensure no extra left padding from previous examples */
+  /* Adjust padding for specific sections within main-content if necessary */
+}
+
+/* --- Header Adjustments for Sidebar --- */
+.site-header .container {
+  /* Adjust header .container to accommodate sidebar */
+  padding-left: calc(25px + var(--sidebar-width));
+  /* Push header content right to align with main content */
+  justify-content: flex-start;
+  /* Align logo and nav to left, instead of space-between */
+}
+
+.site-header .logo {
+  position: absolute;
+  /* Position logo over sidebar */
+  left: 25px;
+  top: 22px;
+  /* Align with header padding */
+  z-index: 1002;
+  /* Ensure logo is above sidebar if any overlap */
+}
+
+/* Adjust main-nav position to align with main content */
+.site-header .main-nav {
+  margin-left: calc(var(--sidebar-width) - 25px);
+  /* Adjust to align after sidebar's edge */
+  /* This calculation might need fine-tuning based on exact logo/header width */
+}
+
+
+/* --- Responsive Adjustments for Static Sidebar --- */
+@media (max-width: 900px) {
+
+  /* Adjust breakpoint as needed for when sidebar should stack */
+  .content-wrapper {
+    flex-direction: column;
+    /* Stack sidebar and main content vertically on smaller screens */
+  }
+
+  .sidebar {
+    width: 100%;
+    /* Full width sidebar when stacked */
+    border-right: none;
+    /* Remove right border */
+    border-bottom: 1px solid var(--border-color);
+    /* Add bottom border when stacked */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    /* Shadow below sidebar */
+    padding: 20px;
+  }
+
+  .sidebar-heading {
+    text-align: center;
+    /* Center heading when stacked */
+    margin-bottom: 20px;
+    padding-left: 0;
+    /* Remove padding */
+  }
+
+  .sidebar-nav ul {
+    display: flex;
+    /* Make sidebar links horizontal */
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Allow wrapping if many links */
+    gap: 15px;
+    /* Space between horizontal links */
+  }
+
+  .sidebar-nav li {
+    margin-bottom: 0;
+    /* Remove vertical margin */
+  }
+
+  .sidebar-nav a {
+    padding: 10px 15px;
+    border-left: none;
+    /* Remove left border highlight when horizontal */
+    padding-left: 15px;
+    /* Reset padding */
+  }
+
+  .main-content {
+    padding-top: 25px;
+    /* Add some space between stacked sidebar and main content */
+  }
+
+  /* Revert header adjustments for stacked layout */
+  .site-header .container {
+    flex-direction: column;
+    /* Keep header items stacked as per original mobile design */
+    gap: 20px;
+    padding-left: 25px;
+    /* Revert header padding */
+    justify-content: space-between;
+  }
+
+  .site-header .logo {
+    position: static;
+    /* Revert logo positioning */
+    left: auto;
+    top: auto;
+    z-index: auto;
+  }
+
+  .site-header .main-nav {
+    margin-left: 0;
+    /* Reset nav margin */
+  }
+}
+
+/* Further smaller screen adjustments if necessary for sidebar links */
+@media (max-width: 480px) {
+  .sidebar-nav ul {
+    flex-direction: column;
+    /* Stack links vertically again on very small screens */
+    align-items: center;
+    /* Center them */
+  }
+}
+
+/* --- Athlete List Specific Styles --- */
+.no-data-message {
+  font-size: 1.2em;
+  color: var(--text-color-dark);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.athlete-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  /* Similar to stat-grid for cards */
+  gap: 25px;
+  /* Spacing between cards */
+  margin-top: 50px;
+  /* Space from heading */
+}
+
+.athlete-card {
+  background-color: var(--secondary-bg);
+  padding: 30px;
+  border-radius: var(--border-radius-main);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 15px var(--shadow-color);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+}
+
+.athlete-card:hover {
+  transform: translateY(-5px);
+  /* Lift effect */
+  box-shadow: 0 8px 25px var(--shadow-color);
+  border-color: var(--accent-color);
+  /* Highlight on hover */
+}
+
+.athlete-link {
+  display: block;
+  /* Make the whole card clickable */
+  color: inherit;
+  /* Inherit text color from parent */
+  text-decoration: none;
+  /* Remove underline */
+}
+
+.athlete-name {
+  font-size: 1.6em;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-color-light);
+  /* Make name stand out */
+}
+
+.athlete-detail {
+  font-size: 0.95em;
+  color: var(--text-color-dark);
+  margin-bottom: 5px;
+}
+
+.detail-value {
+  color: var(--text-color-light);
+  /* Make the actual value brighter */
+  font-weight: 500;
+}
+
+/* Responsive adjustments for athlete grid if needed,
+   should largely follow existing @media rules for .stats-grid */
+@media (max-width: 768px) {
+  .athlete-grid {
+    grid-template-columns: 1fr;
+    /* Stack cards on smaller screens */
+  }
+}
+
+/* --- Comparison Page Styles --- */
+.comparison-section {
+  padding: 80px 0;
+}
+
+.comparison-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.athlete-header {
+  text-align: center;
+  flex: 1;
+  padding: 30px;
+  border-radius: var(--border-radius-main);
+  transition: all var(--transition-speed);
+}
+
+.athlete-header:hover {
+  transform: translateY(-5px);
+}
+
+.athlete1 {
+  background-color: rgba(106, 153, 78, 0.1);
+  border: 1px solid var(--accent-color);
+}
+
+.athlete2 {
+  background-color: rgba(86, 107, 141, 0.1);
+  border: 1px solid #556B8D;
+}
+
+.athlete-name {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: var(--text-color-light);
+}
+
+.athlete-team {
+  font-size: 1.1em;
+  color: var(--text-color-dark);
+}
+
+.vs-circle {
+  width: 80px;
+  height: 80px;
+  background-color: var(--secondary-bg);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--accent-color);
+  border: 3px solid var(--accent-color);
+  flex-shrink: 0;
+}
+
+.head-to-head {
+  background-color: var(--secondary-bg);
+  padding: 30px;
+  border-radius: var(--border-radius-main);
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.sub-heading {
+  font-size: 1.5em;
+  margin-bottom: 25px;
+  text-align: center;
+  color: var(--text-color-light);
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.sub-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+.head-to-head-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 2.5em;
+  font-weight: 700;
+  color: var(--accent-color);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  color: var(--text-color-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.draws {
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: var(--tertiary-bg);
+  border-radius: var(--border-radius-main);
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.comparison-category {
+  background-color: var(--secondary-bg);
+  padding: 30px;
+  border-radius: var(--border-radius-main);
+  border: 1px solid var(--border-color);
+}
+
+.comparison-row {
+  display: flex;
+  gap: 30px;
+}
+
+.comparison-item {
+  flex: 1;
+  padding: 20px;
+  border-radius: var(--border-radius-main);
+}
+
+.athlete1 {
+  border-left: 4px solid var(--accent-color);
+}
+
+.athlete2 {
+  border-left: 4px solid #556B8D;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.back-link {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* Responsive adjustments for comparison page */
+@media (max-width: 768px) {
+  .comparison-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .vs-circle {
+    margin: 20px 0;
+  }
+
+  .comparison-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .head-to-head-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

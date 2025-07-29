@@ -734,3 +734,74 @@ h6 {
     font-size: 0.9em;
   }
 }
+
+/* Add to your athlete_style.css */
+
+.athlete-details-summary {
+  margin-top: 15px;
+  /* Space from the athlete's name */
+  margin-bottom: 30px;
+  /* Space before the next section */
+  background-color: var(--secondary-bg);
+  /* Slightly lighter background */
+  padding: 25px 30px;
+  /* Padding inside the box */
+  border-radius: var(--border-radius-main);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 10px var(--shadow-color);
+  display: flex;
+  /* Arrange items in a row */
+  flex-wrap: wrap;
+  /* Allow items to wrap on smaller screens */
+  gap: 20px 30px;
+  /* Gap between rows and columns */
+  justify-content: center;
+  /* Center items if there's extra space */
+}
+
+.detail-item {
+  margin: 0;
+  /* Remove default paragraph margin */
+  font-size: 1.05em;
+  /* Slightly larger text */
+  color: var(--text-color-dark);
+  /* Muted color for labels */
+  display: flex;
+  align-items: baseline;
+  /* Align label and value nicely */
+}
+
+.detail-label {
+  font-weight: 600;
+  /* Bold the label */
+  color: var(--text-color-light);
+  /* Brighter color for labels */
+  margin-right: 8px;
+  /* Space between label and value */
+  white-space: nowrap;
+  /* Prevent label from wrapping separately */
+}
+
+.detail-value {
+  color: var(--accent-color);
+  /* Use accent color for values */
+  font-family: var(--font-mono);
+  /* Monospace for values, or keep body font */
+  font-weight: 400;
+}
+
+/* Optional: Adjust for smaller screens */
+@media (max-width: 600px) {
+  .athlete-details-summary {
+    flex-direction: column;
+    /* Stack details vertically */
+    gap: 10px;
+    /* Smaller gap when stacked */
+    padding: 20px;
+  }
+
+  .detail-item {
+    justify-content: center;
+    /* Center text within each item when stacked */
+  }
+}

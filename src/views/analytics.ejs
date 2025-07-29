@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUNTO ÓPTIMO| Comparación de Luchadores</title>
+    <link rel="stylesheet" href="/index_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="/" class="logo">PUNTO ÓPTIMO</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/athletes">LUCHADORES</a></li>
+                    <li><a href="/tournaments">EVENTOS</a></li>
+                    <li><a href="#analytics">ANÁLISIS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <aside class="sidebar">
+            <h3 class="sidebar-heading">Admin Tools</h3>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/athletes/register">Registrar Atleta</a></li>
+                    <li><a href="/tournaments/create">Crear Torneo</a></li>
+                    <li><a href="/tournaments/categories/create">Crear Categoría</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="comparison-section">
+                <div class="container">
+                    <h2 class="section-heading">COMPARACIÓN DE LUCHADORES</h2>
+                    
+                    <div class="comparison-header">
+                        <div class="athlete-header athlete1">
+                            <h3 class="athlete-name"><%= comparison.athlete1.name %></h3>
+                            <p class="athlete-team"><%= comparison.athlete1.team %></p>
+                        </div>
+                        
+                        <div class="vs-circle">
+                            <span>VS</span>
+                        </div>
+                        
+                        <div class="athlete-header athlete2">
+                            <h3 class="athlete-name"><%= comparison.athlete2.name %></h3>
+                            <p class="athlete-team"><%= comparison.athlete2.team %></p>
+                        </div>
+                    </div>
+                    
+                    <div class="head-to-head">
+                        <h4 class="sub-heading">ENFRENTAMIENTOS DIRECTOS</h4>
+                        <div class="head-to-head-stats">
+                            <div class="stat-item">
+                                <span class="stat-value"><%= comparison.headToHead.athlete1Wins %></span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value"><%= comparison.headToHead.fights %></span>
+                                <span class="stat-label">Total</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value"><%= comparison.headToHead.athlete2Wins %></span>
+                                <span class="stat-label">Victorias</span>
+                            </div>
+                        </div>
+                        <% if (comparison.headToHead.draws > 0) { %>
+                            <div class="draws">
+                                <span class="stat-value"><%= comparison.headToHead.draws %></span>
+                                <span class="stat-label">Empates</span>
+                            </div>
+                        <% } %>
+                    </div>
+                    
+                    <div class="comparison-grid">
+                        <!-- Basic Info -->
+                        <div class="comparison-category">
+                            <h4 class="sub-heading">INFORMACIÓN BÁSICA</h4>
+                            <div class="comparison-row">
+                                <div class="comparison-item athlete1">
+                                    <p><span class="detail-label">Estilo: </span><%= comparison.athlete1.fightingStyle %></p>
+                                    <p><span class="detail-label">Rango: </span><%= comparison.athlete1.rank %></p>
+                                    <p><span class="detail-label">Peso: </span><%= comparison.athlete1.weight %></p>
+                                </div>
+                                <div class="comparison-item athlete2">
+                                    <p><span class="detail-label">Estilo: </span><%= comparison.athlete2.fightingStyle %></p>
+                                    <p><span class="detail-label">Rango: </span><%= comparison.athlete2.rank %></p>
+                                    <p><span class="detail-label">Peso: </span><%= comparison.athlete2.weight %></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Records -->
+                        <div class="comparison-category">
+                            <h4 class="sub-heading">RÉCORDS</h4>
+                            <div class="comparison-row">
+                                <div class="comparison-item athlete1">
+                                    <p><span class="detail-label">Récord: </span><%= comparison.athlete1.record %></p>
+                                    <p><span class="detail-label">% Victorias: </span><%= comparison.athlete1.winRate %></p>
+                                    <p><span class="detail-label">Diferencia: </span><%= comparison.athlete1.winGap %></p>
+                                </div>
+                                <div class="comparison-item athlete2">
+                                    <p><span class="detail-label">Récord: </span><%= comparison.athlete2.record %></p>
+                                    <p><span class="detail-label">% Victorias: </span><%= comparison.athlete2.winRate %></p>
+                                    <p><span class="detail-label">Diferencia: </span><%= comparison.athlete2.winGap %></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats -->
+                        <div class="comparison-category">
+                            <h4 class="sub-heading">ESTADÍSTICAS</h4>
+                            <div class="comparison-row">
+                                <div class="comparison-item athlete1">
+                                    <p><span class="detail-label">Combates: </span><%= comparison.athlete1.totalFights %></p>
+                                    <p><span class="detail-label">Faltas: </span><%= comparison.athlete1.totalFouls %></p>
+                                </div>
+                                <div class="comparison-item athlete2">
+                                    <p><span class="detail-label">Combates: </span><%= comparison.athlete2.totalFights %></p>
+                                    <p><span class="detail-label">Faltas: </span><%= comparison.athlete2.totalFouls %></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Techniques -->
+                        <div class="comparison-category">
+                            <h4 class="sub-heading">TÉCNICAS</h4>
+                            <div class="comparison-row">
+                                <div class="comparison-item athlete1">
+                                    <p><span class="detail-label">Técnica principal: </span><%= comparison.athlete1.mostUsedTechnique %></p>
+                                    <p><span class="detail-label">Zona preferida: </span><%= comparison.athlete1.preferredBodyPart %></p>
+                                </div>
+                                <div class="comparison-item athlete2">
+                                    <p><span class="detail-label">Técnica principal: </span><%= comparison.athlete2.mostUsedTechnique %></p>
+                                    <p><span class="detail-label">Zona preferida: </span><%= comparison.athlete2.preferredBodyPart %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="back-link">
+                        <a href="/athletes" class="btn-secondary">VOLVER A LUCHADORES</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 PUNTO ÓPTIMO. Todos los derechos reservados.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos de Servicio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+</body>
+</html>

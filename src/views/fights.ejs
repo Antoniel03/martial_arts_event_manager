@@ -1,26 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link to your existing stylesheet -->
     <link rel="stylesheet" href="/athletes_style.css">
-    <!-- Ensure fonts are linked, same as other pages -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;700&family=Space+Mono&display=swap" rel="stylesheet">
-    <title>MAM SYSTEM | Fights</title>
+    <title>PUNTO ÓPTIMO | Peleas</title>
 </head>
 <body>
 
     <header class="site-header">
         <div class="container">
-            <a href="/" class="logo">MAM SYSTEM</a>
+            <a href="/" class="logo">PUNTO ÓPTIMO</a>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#fighters">FIGHTERS</a></li>
-                    <li><a href="/tournaments" class="active">EVENTS</a></li> <!-- Assuming fights are under events -->
-                    <li><a href="#techniques">TECHNIQUES</a></li>
-                    <li><a href="#analytics">ANALYTICS</a></li>
-                </ul>
+                    <li><a href="/athletes">LUCHADORES</a></li>
+                    <li><a href="/tournaments" class="active">EVENTOS</a></li> </ul>
             </nav>
         </div>
     </header>
@@ -28,24 +23,22 @@
     <main>
         <section id="fights-list" class="tournaments-section">
             <div class="container">
-                <h1 class="section-heading">MATCH BOUTS</h1>
+                <h1 class="section-heading">COMBATES</h1>
 
                 <% if (matches.length === 0) { %>
                     <div class="no-results-card">
-                        <p class="text-center">No matches found for this category.</p>
-                        <p class="text-center small-text">Please check back later or select another category.</p>
+                        <p class="text-center">No se encontraron combates para esta categoría.</p>
+                        <p class="text-center small-text">Por favor, vuelve a consultar más tarde o selecciona otra categoría.</p>
                     </div>
                 <% } else { %>
-                    <ul class="match-list-container"> <!-- New container for fight list style -->
-                        <% matches.forEach((match) => { %>
-                            <li class="match-item"> <!-- New item class for each match row -->
-                                <a href="http://localhost:3000/fights/match/<%= match.id %>" class="match-link">
+                    <ul class="match-list-container"> <% matches.forEach((match) => { %>
+                            <li class="match-item"> <a href="http://localhost:3000/fights/match/<%= match.id %>" class="match-link">
                                     <div class="fighter-names">
                                         <span class="fighter-red"><%= match.athlete_red %></span>
                                         <span class="vs-separator">VS</span>
                                         <span class="fighter-blue"><%= match.athlete_blue %></span>
                                     </div>
-                                    <span class="view-match-details">View Match &raquo;</span>
+                                    <span class="view-match-details">Ver Combate &raquo;</span>
                                 </a>
                             </li>
                         <% }) %>
@@ -57,11 +50,11 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2025 MAM SYSTEM. All rights reserved.</p>
+            <p>&copy; 2025 PUNTO ÓPTIMO. Todos los derechos reservados.</p>
             <nav class="footer-nav">
                 <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos de Servicio</a></li>
                 </ul>
             </nav>
         </div>
